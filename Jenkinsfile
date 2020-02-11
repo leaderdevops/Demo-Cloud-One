@@ -15,7 +15,7 @@ pipeline {
 
     stage('Push to ECR') {
       steps {
-        sh '''docker tag java-app:latest 650143975734.dkr.ecr.us-east-1.amazonaws.com/java-app:latest
+        sh '''docker tag java-app:latest 650143975734.dkr.ecr.us-east-1.amazonaws.com/dssc
 docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/dssc:latest'''
       }
     }
