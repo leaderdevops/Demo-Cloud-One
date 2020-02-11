@@ -16,8 +16,8 @@ pipeline {
     stage('Push to ECR') {
       steps {
         sh '''$(aws ecr get-login --no-include-email --region us-east-1)
-docker tag java-app:latest 650143975734.dkr.ecr.us-east-1.amazonaws.com/dssc
-docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/dssc:latest'''
+docker tag java-app:latest 650143975734.dkr.ecr.us-east-1.amazonaws.com/java-app
+docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/java-app:latest'''
       }
     }
 
