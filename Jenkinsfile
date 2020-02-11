@@ -9,9 +9,9 @@ pipeline {
 
     stage('Docker Build') {
       steps {
-        sh 'docker.build(\'java-app\')'
+        script {
+        docker.build('java-app')
       }
     }
-
   }
 }
