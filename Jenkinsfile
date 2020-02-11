@@ -10,8 +10,9 @@ pipeline {
     stage('Docker Build') {
       steps {
         script {
-        docker.build('java-app')
+        docker build -t java-app:latest .
       }
     }
   }
+}
 }
