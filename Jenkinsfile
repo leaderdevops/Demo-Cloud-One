@@ -17,7 +17,7 @@ pipeline {
    stage('ECR push') {
      steps {
        script {
-         docker.withRegistry('650143975734.dkr.ecr.us-east-1.amazonaws.com/dssc', 'ecr:us-east-1:650143975734') {
+         docker.withRegistry('650143975734.dkr.ecr.us-east-1.amazonaws.com/dssc', 'ecr:us-east-1:credential-id') {
            docker.image('java-app').push(env.IMAGETAG+'-'+env.BUILD_ID)}
          }
  
