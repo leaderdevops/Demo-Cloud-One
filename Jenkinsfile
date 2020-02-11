@@ -9,7 +9,7 @@ pipeline {
     stage('Docker Build') {
       steps {
         script {
-        docker build -t java-app:latest .
+        docker build -t java-app .
       }
     }
   }
