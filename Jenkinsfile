@@ -29,7 +29,7 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/dssc:latest'''
 
     stage('Deploy') {
       steps {
-        sh 'sudo aws s3 ls'
+        sh 'echo \'TBD\''
       }
     }
 
