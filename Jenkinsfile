@@ -6,7 +6,6 @@ pipeline {
         git(url: 'https://github.com/felipecosta09/DSSC.git', branch: 'master')
       }
     }
-
     stage('Docker Build') {
       steps {
         script {
@@ -15,4 +14,4 @@ pipeline {
     }
   }
 }
-}
+}}}}}
