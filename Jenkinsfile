@@ -65,9 +65,15 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/java-app'''
       }
     }
 
-    stage('Deploy') {
+    stage('DS App Protect') {
       steps {
         sh 'echo Deploy New Container to Fargate'
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        echo 'Deploy New Container to Fargate'
       }
     }
 
