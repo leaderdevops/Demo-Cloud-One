@@ -3,20 +3,22 @@ pipeline {
   stages {
     stage('Git Checkout') {
       steps {
+        sh 'echo Git Checkout from the Repository'
         git(url: 'https://github.com/felipecosta09/java-goof.git', branch: 'master', poll: true)
-        sh 'echo \'TBD\''
       }
     }
 
     stage('Source Code Test') {
       steps {
-        sh 'echo \'TBD\''
+        sh 'echo Source Code Test made by Snyk...'
       }
     }
 
     stage('Container Build') {
       steps {
-        sh 'docker build -t java-app:latest .'
+        sh '''echo Build the Docker Container
+echo 
+docker build -t java-app:latest .'''
       }
     }
 
@@ -36,7 +38,7 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/java-app'''
 
     stage('Cloud One Container Image Scan') {
       steps {
-        sh 'echo \'TBD\''
+        sh 'echo Container Image Scan from CLoud One'
       }
     }
 
@@ -65,7 +67,7 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/java-app'''
 
     stage('Deploy') {
       steps {
-        sh 'echo \'TBD\''
+        sh 'echo Deploy New Container to Fargate'
       }
     }
 
