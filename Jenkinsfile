@@ -10,7 +10,7 @@ pipeline {
 
     stage('Source Code Test') {
       steps {
-        snykSecurity(failOnIssues: true, projectName: 'java-goof', severity: 'medium', organisation: 'felipecosta09')
+        snykSecurity(failOnIssues: true, projectName: 'java-goof', severity: 'medium', organisation: 'felipecosta09', monitorProjectOnBuild: true)
       }
     }
 
