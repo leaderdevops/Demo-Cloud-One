@@ -10,7 +10,7 @@ pipeline {
 
     stage('Source Code Test') {
       steps {
-        sh 'echo Source Code Test made by Snyk...'
+        snykSecurity(failOnIssues: true, projectName: 'java-app', severity: 'medium', organisation: 'felipecosta09')
       }
     }
 
