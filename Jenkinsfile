@@ -3,35 +3,27 @@ pipeline {
   stages {
     stage('Git Checkout') {
       steps {
-        sh 'echo Git Checkout from the Repository'
         git(url: 'https://github.com/felipecosta09/DSSC.git', branch: 'master', poll: true)
       }
     }
 
     stage('Source Code Test') {
       steps {
-        sleep 10
+        sleep 5
       }
     }
 
     stage('Container Build') {
       steps {
-        sh '''echo Build the Docker Container
-echo 
-docker build -t web-app:latest .'''
+        sh 'docker build -t web-app:latest .'
       }
     }
 
     stage('Push to ECR') {
       steps {
-        sh '''echo Logging in to Amazon ECR...
-aws --version
+        sh '''aws --version
 $(aws ecr get-login --no-include-email --region us-east-1)
-echo 
-echo Tagging Docker Build to prepare to Push
 docker tag web-app:latest 650143975734.dkr.ecr.us-east-1.amazonaws.com/web-app
-echo 
-echo Push the New Image to ECR
 docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/web-app'''
       }
     }
