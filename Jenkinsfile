@@ -39,7 +39,15 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/web-app'''
         HIGH = '1'
       }
       steps {
-        sh 'echo Container Image Scan from CLoud One'
+        script {
+           $FLAG = sh([ script: 'python /home/scAPI.py', returnStdout: true ]).trim()
+           if ($FLAG == '1') {
+             sh 'docker tag <your_smartcheck_ecr_name> <your_blessed_ecr_name>'
+             docker.withRegistry('<https://your.ecr.domain.amazonws.com>', 'ecr:<ecr_region>:<credential_id>') {
+               docker.image('<your_blessed_ecr_name>').push(env.IMAGETAG+'-'+env.BUILD_ID) }
+             }
+               sh 'docker rmi $(docker images -q) -f 2> /dev/null'
+             }
       }
     }
 
