@@ -35,7 +35,7 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/web-app'''
 
     stage('Cloud One Container Image Scan') {
       steps {
-        smartcheckScan(imageName: 'web-app', smartcheckHost: 'a8731b3af4e5911ea8e200ee26103975-952251962.us-east-1.elb.amazonaws.com', smartCheckHost: '650143975734.dkr.ecr.us-east-1.amazonaws.com', smartcheckUser: 'demo', smartcheckPassword: 'trendmicro', debug: true)
+        echo 'DSSC'
       }
     }
 
