@@ -10,7 +10,7 @@ pipeline {
 
     stage('Source Code Test') {
       steps {
-        snykSecurity(failOnIssues: true, projectName: 'dssc', severity: 'medium', organisation: 'felipecosta09', monitorProjectOnBuild: true)
+        sleep 10
       }
     }
 
@@ -79,9 +79,7 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/web-app'''
 
     stage('Slack Notification') {
       steps {
-        slackSend channel: '#aws-account-alerts',
-                    color: 'good',
-                    message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
+        slackSend(channel: '#aws-account-alerts', color: 'good', message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}")
       }
     }
 
