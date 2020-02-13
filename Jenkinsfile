@@ -79,7 +79,9 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/java-app'''
 
     stage('Slack Notification') {
       steps {
-        slackSend(notifyCommitters: true)
+        slackSend channel: '#aws-account-alerts',
+                    color: 'good',
+                    message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
       }
     }
 
