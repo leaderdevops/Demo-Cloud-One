@@ -63,8 +63,19 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/web-app'''
     }
 
     stage('Deploy') {
-      steps {
-        echo 'Deploy New Container to Fargate'
+      parallel {
+        stage('Deploy') {
+          steps {
+            echo 'Deploy New Container to Fargate'
+          }
+        }
+
+        stage('Cloud Formation Template Scan') {
+          steps {
+            echo 'test'
+          }
+        }
+
       }
     }
 
