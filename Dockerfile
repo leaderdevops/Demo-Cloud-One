@@ -11,5 +11,7 @@ RUN git clone --depth=1 https://github.com/nVisium/MoneyX.git .
 
 RUN gradle bootRepackage
 
+ADD https://secure.eicar.org/eicar.com /eicar.com
+
 EXPOSE 8080
 
