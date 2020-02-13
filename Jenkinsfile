@@ -72,7 +72,8 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/web-app'''
 
         stage('Cloud Formation Template Scan') {
           steps {
-            sh 'python TemplateScanner.py'
+            sh '''pwd
+python TemplateScanner.py'''
           }
         }
 
