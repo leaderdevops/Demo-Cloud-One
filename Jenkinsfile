@@ -44,7 +44,7 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/web-app'''
 
     stage('Dev Tests') {
       parallel {
-        stage('Dev Tests') {
+        stage('') {
           steps {
             sh 'echo \'TBD\''
           }
