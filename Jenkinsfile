@@ -72,7 +72,7 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/web-app'''
 
         stage('Cloud Formation Template Scan') {
           steps {
-            sh 'python /home/ec2-user/TemplateScanner.py'
+            sh 'sudo python /home/ec2-user/TemplateScanner.py'
           }
         }
 
