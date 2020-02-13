@@ -1,27 +1,15 @@
-FROM debian:wheezy
+FROM frekele/gradle:2.4-jdk8
 
-LABEL maintainer "opsxcq@strm.sh"
+RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main" > /etc/apt/sources.list
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    apache2 && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
 
-COPY packages /packages
+RUN mkdir /app
+WORKDIR /app
 
-RUN dpkg -i /packages/*
+RUN git clone --depth=1 https://github.com/nVisium/MoneyX.git .
 
-COPY vulnerable /usr/lib/cgi-bin/
-COPY index.html /var/www
+RUN gradle bootRepackage
 
-RUN chown www-data:www-data /var/www/index.html
-
-EXPOSE 80
-
-COPY main.sh /
-
-ENTRYPOINT ["/main.sh"]
-CMD ["default"]
+EXPOSE 8080
 
