@@ -77,5 +77,11 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/java-app'''
       }
     }
 
+    stage('Slack Notification') {
+      steps {
+        slackSend(channel: 'aws-account-alerts', baseUrl: 'https://hooks.slack.com/services/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', message: 'Test')
+      }
+    }
+
   }
 }
