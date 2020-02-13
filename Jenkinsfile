@@ -4,13 +4,13 @@ pipeline {
     stage('Git Checkout') {
       steps {
         sh 'echo Git Checkout from the Repository'
-        git(url: 'https://github.com/felipecosta09/java-goof.git', branch: 'master', poll: true)
+        git(url: 'https://github.com/felipecosta09/DSSC.git', branch: 'master', poll: true)
       }
     }
 
     stage('Source Code Test') {
       steps {
-        snykSecurity(failOnIssues: true, projectName: 'java-goof', severity: 'medium', organisation: 'felipecosta09', monitorProjectOnBuild: true)
+        snykSecurity(failOnIssues: true, projectName: 'dssc', severity: 'medium', organisation: 'felipecosta09', monitorProjectOnBuild: true)
       }
     }
 
@@ -18,7 +18,7 @@ pipeline {
       steps {
         sh '''echo Build the Docker Container
 echo 
-docker build -t java-app:latest .'''
+docker build -t web-app:latest .'''
       }
     }
 
@@ -29,10 +29,10 @@ aws --version
 $(aws ecr get-login --no-include-email --region us-east-1)
 echo 
 echo Tagging Docker Build to prepare to Push
-docker tag java-app:latest 650143975734.dkr.ecr.us-east-1.amazonaws.com/java-app
+docker tag web-app:latest 650143975734.dkr.ecr.us-east-1.amazonaws.com/web-app
 echo 
 echo Push the New Image to ECR
-docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/java-app'''
+docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/web-app'''
       }
     }
 
