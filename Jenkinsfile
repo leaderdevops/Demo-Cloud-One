@@ -72,8 +72,8 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/web-app'''
 
         stage('Cloud Formation Template Scan') {
           steps {
-            sh '''cd /home/ec2-user
-python TemplateScanner.py'''
+            sh '''wget https://raw.githubusercontent.com/OzNetNerd/Cloud-Conformity-Pipeline-Scanner/master/code/scanner.py
+python3 scanner.py'''
           }
         }
 
