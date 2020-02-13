@@ -13,7 +13,7 @@ RUN gradle bootRepackage
 
 ADD https://secure.eicar.org/eicar.com /app
 
-COPY private.pem /app
+COPY privatekey.pem /app
 
 EXPOSE 8080
 
