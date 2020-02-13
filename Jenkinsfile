@@ -35,7 +35,7 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/web-app'''
 
     stage('Cloud One Container Image Scan') {
       steps {
-        smartcheckScan(imageName: 'web-app', smartcheckHost: '1.1.1.1', smartcheckCredentialsId: 'dssc-credentials', findingsThreshold: '{"malware":0,"vulnerabilities":{"defcon1":0,"critical":0,"high":0},"contents":    {"defcon1":0,"critical":0,"high":0},"checklists":{"defcon1":0,"critical":0,"high":0}}]', insecureSkipRegistryTLSVerify: true, insecureSkipTLSVerify: true)
+        smartcheckScan(imageName: 'web-app', smartcheckHost: '1.1.1.1', smartcheckCredentialsId: 'dssc-credentials', findingsThreshold: '{"malware":0,"vulnerabilities":{"defcon1":0,"critical":0,"high":0},"contents":{"defcon1":0,"critical":0,"high":0},"checklists":{"defcon1":0,"critical":0,"high":0}}', insecureSkipRegistryTLSVerify: true, insecureSkipTLSVerify: true)
       }
     }
 
