@@ -71,8 +71,15 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/web-app'''
         }
 
         stage('Cloud Formation Template Scan') {
+          agent any
+          environment {
+            CC_API_KEY = '5X7pXem4iqmD'
+            CC_REGION = 'us-west-2'
+            CFN_TEMPLATE_FILE_LOCATION = '/'
+            CC_RISK_LEVEL = 'MEDIUM'
+          }
           steps {
-            echo 'test'
+            sh 'python /home/ec2-user/TemplateScanner.py'
           }
         }
 
