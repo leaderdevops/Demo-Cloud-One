@@ -2,14 +2,19 @@ pipeline {
   agent any
   stages {
     stage('Git Checkout') {
-      steps {
-        git(url: 'https://github.com/felipecosta09/DSSC.git', branch: 'master', poll: true)
-      }
-    }
+      parallel {
+        stage('Git Checkout') {
+          steps {
+            git(url: 'https://github.com/felipecosta09/DSSC.git', branch: 'master', poll: true)
+          }
+        }
 
-    stage('Source Code Test') {
-      steps {
-        sleep 5
+        stage('Static Code Analysis') {
+          steps {
+            sleep 5
+          }
+        }
+
       }
     }
 
@@ -49,6 +54,12 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/web-app'''
         stage('Deploy Tests') {
           steps {
             sh 'echo \'TBD\''
+          }
+        }
+
+        stage('Manual Test') {
+          steps {
+            input 'Approve?'
           }
         }
 
