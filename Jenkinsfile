@@ -34,10 +34,6 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/web-app'''
     }
 
     stage('Cloud One Container Image Scan') {
-      agent any
-      environment {
-        HIGH = '1'
-      }
       steps {
         smartcheckScan(imageName: 'web-app', smartcheckHost: '1.1.1.1', smartcheckCredentialsId: 'dssc-credentials')
       }
