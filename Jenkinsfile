@@ -64,7 +64,7 @@ docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/web-app'''
 
     stage('Deploy') {
       parallel {
-        stage('Deploy') {
+        stage('Deploy IaaS') {
           steps {
             echo 'Deploy New Container to Fargate'
           }
