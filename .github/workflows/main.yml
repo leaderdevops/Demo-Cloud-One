@@ -15,9 +15,8 @@ jobs:
       run: echo Container Build
     - name: Amazon ECR "Login" Action for GitHub Actions
       uses: aws-actions/amazon-ecr-login@v1
-      with: 650143975734
-    # A comma-delimited list of AWS account IDs that are associated with the ECR registries. If you do not specify a registry, the default ECR registry is assumed.
-    registries: web-app
+        with:650143975734
+        registries:web-app
     - name: Cloud One Container Image Scan
       run: echo Cloud One Container Image Scan
     - name: Dev Tests
