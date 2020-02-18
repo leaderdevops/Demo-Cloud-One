@@ -9,8 +9,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Source Code Test
-      run: echo Source Code Test
+    - name: Snyk CLI Action
+      uses: clarkio/snyk-cli-action@1.0.0
     - name: Container Build
       run: echo Container Build
     - name: Push to ECR
