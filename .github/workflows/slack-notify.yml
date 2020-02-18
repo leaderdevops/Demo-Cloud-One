@@ -9,4 +9,10 @@ jobs:
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2.0.0
       env:
+        SLACK_CHANNEL: aws-account-alerts
+        SLACK_COLOR: '#FF0000'
+        SLACK_ICON: https://github.com/felipecosta09/DSSC/blob/master/trend-micro-mobile.png?size=48
+        SLACK_MESSAGE: 'Post Content :Build:'
+        SLACK_TITLE: Post Title
+        SLACK_USERNAME: rtCamp
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
