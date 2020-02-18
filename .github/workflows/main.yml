@@ -42,5 +42,13 @@ jobs:
       run: echo Deploy Cloud One Application Protection
     - name: Deploy
       run: echo Deploy to Fargate
-    - name: Slack Notify
-      uses: rtCamp/action-slack-notify@v2.0.1
+    - name: Slack Notification
+      uses: homoluctus/slatify@master
+      if: always()
+      with:
+        type: ${{ job.status }}
+        job_name: '*Lint Check*'
+        mention: 'here'
+        mention_if: 'failure'
+        channel: '#aws-account-alerts'
+        url: ${{ secrets.SLACK_WEBHOOK }}
