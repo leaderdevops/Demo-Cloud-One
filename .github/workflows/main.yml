@@ -1,7 +1,12 @@
 name: CI/CD DSSC
 
-on: [push]
-
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
 jobs:
   build:
 
@@ -13,10 +18,12 @@ jobs:
       uses: clarkio/snyk-cli-action@1.0.0
     - name: Container Build
       run: echo Container Build
-    - name: Amazon ECR "Login" Action for GitHub Actions
-      uses: aws-actions/amazon-ecr-login@v1
-        with:650143975734
-        registries:web-app
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
     - name: Cloud One Container Image Scan
       run: echo Cloud One Container Image Scan
     - name: Dev Tests
