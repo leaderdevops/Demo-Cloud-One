@@ -42,8 +42,5 @@ jobs:
       run: echo Deploy Cloud One Application Protection
     - name: Deploy
       run: echo Deploy to Fargate
-    - name: Slack Notifier
-      uses: gymshark/slack-notifier-action@v1.0.2
-      with:
-        # webhook url
-        webhook_url:${{ secrets.SLACK_API_HOOK }}
+    - name: Slack Notify
+      uses: rtCamp/action-slack-notify@v2.0.1
