@@ -51,4 +51,7 @@ jobs:
         mention: 'here'
         mention_if: 'failure'
         channel: '#aws-account-alerts'
+        icon_emoji: https://github.com/felipecosta09/DSSC/blob/master/trend-micro-mobile.png 
         url: ${{ secrets.SLACK_WEBHOOK }}
+        commit: true
+        token: ${{ secrets.GITHUB_TOKEN }}
