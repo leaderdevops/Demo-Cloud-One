@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Snyk CLI Action
-      uses: clarkio/snyk-cli-action@1.0.0
+      run: echo Container Build
     - name: Container Build
       run: echo Container Build
     - name: Configure AWS credentials
