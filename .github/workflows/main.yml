@@ -9,6 +9,7 @@
 name: Protect CI/CD Pipelines
 env:
   AWS_REGION_NAME: "us-east-1"
+  AWS_CC_REGION: "us-west-2"
 
 on: 
   push:
@@ -72,8 +73,11 @@ jobs:
          - name: Unit Tests
            run: echo Unit Tests
       
-         - name: Deploy Tests
-           run: echo Deploy Tests
+         - name: CF Deploy Tests
+           run: |
+             git clone https://github.com/raphabot/cloud-conformity-cloudformation-scanner.git
+             npm install
+             node cloud-formation-scanning.js -p cfn.yml -r ${{ env.AWS_CC_REGION }} -k ${{ secrets.CC_API }}
       
          - name: Deploy Cloud One Application Protection
            run: echo Deploy Cloud One Application Protection
