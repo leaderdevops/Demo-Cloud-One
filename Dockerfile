@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM sharathwe45/heartbleed:latest
 
 RUN mkdir /app
 WORKDIR /app
