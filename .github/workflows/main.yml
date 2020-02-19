@@ -1,4 +1,14 @@
-name: CI/CD DSSC
+#---------------------------------------------------------------------
+# GitHub Actions to Protect CI/CD Pipelines
+#
+# Version      Date        Info
+# 1.0          2019        Initial Version
+#
+# Made by Felipe Costa
+#---------------------------------------------------------------------
+name: Protect CI/CD Pipelines
+env:
+  AWS_REGION_NAME: "us-east-1"
 
 on:
   push:
@@ -8,39 +18,58 @@ on:
     branches:
     - master
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
+    ci_pipeline:
+       runs-on: ubuntu-latest
 
     steps:
+    - name: Git clone our repository
     - uses: actions/checkout@v2
+      
     - name: Source Code Test
       run: echo Source Code Test
+      
     - name: Container Build
       run: docker build -t web-app:latest .
+      
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET }}
         aws-region: us-east-1
+        
     - name: Login to ECR
       run: $(aws ecr get-login --no-include-email --region us-east-1)
+      
     - name: Tag Docker Image
       run: docker tag web-app:latest ${{ secrets.ECR_LOGIN }}/web-app
+      
     - name: Push Docker Image to ECR
       run: docker push ${{ secrets.ECR_LOGIN }}/web-app
+      
     - name: Cloud One Container Image Scan
       run: echo Cloud One Container Image Scan
+    
+    cd_pipeline:
+       runs-on: ubuntu-latest
+       needs: [ci_pipeline]
+       
+    steps:
+    
     - name: Dev Tests
       run: echo Dev Tests
+      
     - name: Unit Tests
       run: echo Unit Tests
+      
     - name: Deploy Tests
       run: echo Deploy Tests
+      
     - name: Deploy Cloud One Application Protection
       run: echo Deploy Cloud One Application Protection
+      
     - name: Deploy
       run: echo Deploy to Fargate
+      
     - name: Slack Notification
       run: wget https://github.com/felipecosta09/DSSC/blob/master/slack.py && chmod 777 scan.py && ./scan.py
