@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Cloud Conformity demo environment
+Description: Cloud Conformity Demo Environment
 
 Parameters:
   AdminIp:
