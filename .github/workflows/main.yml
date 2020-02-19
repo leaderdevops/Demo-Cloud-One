@@ -75,7 +75,6 @@ jobs:
       
          - name: CF Deploy Tests
            run: |
-             git clone https://github.com/raphabot/cloud-conformity-cloudformation-scanner.git
              npm install
              node cloud-formation-scanning.js -p sample.json -r ${{ env.AWS_CC_REGION }} -k ${{ secrets.CC_API }}
       
