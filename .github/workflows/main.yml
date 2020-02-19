@@ -77,7 +77,7 @@ jobs:
            run: |
              git clone https://github.com/raphabot/cloud-conformity-cloudformation-scanner.git
              npm install
-             node cloud-formation-scanning.js -p cfn.yml -r ${{ env.AWS_CC_REGION }} -k ${{ secrets.CC_API }}
+             node cloud-formation-scanning.js -p sample.json -r ${{ env.AWS_CC_REGION }} -k ${{ secrets.CC_API }}
       
          - name: Deploy Cloud One Application Protection
            run: echo Deploy Cloud One Application Protection
