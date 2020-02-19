@@ -75,8 +75,7 @@ jobs:
       
          - name: CF Deploy Tests
            run: |
-             npm install
-             node cloud-formation-scanning.js -p sample.json -r ${{ env.AWS_CC_REGION }} -k ${{ secrets.CC_API }}
+             aws cloudformation validate-template --template-body file://cfn.yml
       
          - name: Deploy Cloud One Application Protection
            run: echo Deploy Cloud One Application Protection
