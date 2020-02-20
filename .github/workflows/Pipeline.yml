@@ -85,5 +85,24 @@ jobs:
            
          - name: Print nice message on completion of CD Pipeline
            run : echo "Dev Tests part finished successfully"
+       
+    Deploy:
+       runs-on: ubuntu-latest
+       needs: [Dev_Tests]
+       steps:
+         - name: AWS CF Deploy Tests
+           run: aws cloudformation validate-template --template-body file://cfn.yml
+      
+         - name: Conformity CF Deploy Tests
+           run: echo Conformity CF Deploy Test
            
+         - name: Deploy to Fargate
+           run: echo Deploy to Fargate
 
+    Slack_Notification:
+       runs-on: ubuntu-latest
+       needs: [Deploy]
+       steps:
+ 
+         - name: Slack Notification
+           run: echo Slack Notification
