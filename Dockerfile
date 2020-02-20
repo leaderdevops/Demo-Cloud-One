@@ -1,11 +1,12 @@
-FROM sharathwe45/heartbleed:latest
+FROM maven:3-jdk-8-slim
 
-RUN mkdir /app
-WORKDIR /app
+RUN mkdir /usr/src/goof
+RUN mkdir /tmp/extracted_files
+COPY . /usr/src/goof
+WORKDIR /usr/src/goof
 
-ADD https://secure.eicar.org/eicar.com /app
-
-COPY privatekey.pem /app
+RUN mvn install
 
 EXPOSE 8080
+ENTRYPOINT ["mvn", "tomcat7:run"]
 
