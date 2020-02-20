@@ -122,13 +122,13 @@ jobs:
        runs-on: ubuntu-latest
        needs: [Template Scan]
        steps:
-        - name: Deploy to Fargate
-          run: echo Deploy to Fargate
+         - name: Deploy to Fargate
+           run: echo Deploy to Fargate
     
     Slack Notification:
        runs-on: ubuntu-latest
        needs: [Deploy]
        steps:
  
-       - name: Slack Notification
-         run: echo Slack Notification 
+         - name: Slack Notification
+           run: echo Slack Notification 
