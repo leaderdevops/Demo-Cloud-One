@@ -27,12 +27,12 @@ jobs:
          - name: Git Checkout
            uses: actions/checkout@v2
  
-         #- name: Run Snyk to check for vulnerabilities
-           #uses: snyk/actions/maven@master
-           #env:
-            #SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-           #with:
-            #args: --severity-threshold=high
+         - name: Run Snyk to check for vulnerabilities
+           uses: snyk/actions/maven@master
+           env:
+            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+           with:
+            args: --severity-threshold=high
                 
     Build_and_Push:
        runs-on: ubuntu-latest
