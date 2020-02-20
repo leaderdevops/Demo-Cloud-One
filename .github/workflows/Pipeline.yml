@@ -30,7 +30,7 @@ jobs:
          - name: Source Code Test
            run: echo Source Code Test
            
-    Docker_Build:
+    Build_and_Push:
        runs-on: ubuntu-latest
        needs: [Source_Code_Test]
        steps:
@@ -40,10 +40,6 @@ jobs:
          - name: Container Build
            run : docker build -t web-app:latest .
     
-    AWS_ECR_Push:
-       runs-on: ubuntu-latest
-       needs: [Docker_Build]
-       steps: 
          - name: Configure my AWS Credentils
            uses: aws-actions/configure-aws-credentials@v1
            with:
@@ -62,7 +58,7 @@ jobs:
            
     Container_Image_Scan:
        runs-on: ubuntu-latest
-       needs: [AWS_ECR_Push]
+       needs: [Build_and_Push]
        steps:
          - name: Cloud One Container Image Scan
            run: echo Cloud One Container Image Scan
