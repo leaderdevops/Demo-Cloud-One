@@ -90,6 +90,9 @@ jobs:
        runs-on: ubuntu-latest
        needs: [Dev_Tests]
        steps:
+         - name: Git Checkout
+           uses: actions/checkout@v2
+           
          - name: AWS CF Deploy Tests
            run: aws cloudformation validate-template --template-body file://cfn.yml
       
