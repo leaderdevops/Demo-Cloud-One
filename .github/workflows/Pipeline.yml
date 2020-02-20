@@ -31,8 +31,8 @@ jobs:
            uses: snyk/actions/maven@master
            env:
             SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-           with:
-            args: --severity-threshold=low
+           #with:
+            #args: --severity-threshold=low
                 
     Build_and_Push:
        runs-on: ubuntu-latest
