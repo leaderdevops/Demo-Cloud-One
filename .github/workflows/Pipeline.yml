@@ -71,7 +71,7 @@ jobs:
          - name: Cloud One Container Image Scan
            run: | 
              chmod 777 gitactions.sh
-             ./gitactions.sh
+             ./actions.sh
          
          - name: Cointainer Successfully Scanned
            run : echo "CI Pipeline part finished successfully"
