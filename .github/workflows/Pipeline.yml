@@ -65,9 +65,11 @@ jobs:
        runs-on: ubuntu-latest
        needs: [Build_and_Push]
        steps:
-         - name: Clone the Repo
-           run: git clone https://github.com/felipecosta09/DSSC.git
-             
+         #- name: Clone the Repo
+           #run: git clone https://github.com/felipecosta09/DSSC.git
+         
+         - name: Git Checkout
+           uses: actions/checkout@v2
          - name: Cloud One Container Image Scan
            run: | 
              cd /DSSC/scripts
