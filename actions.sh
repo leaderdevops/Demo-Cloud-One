@@ -92,12 +92,7 @@ else
   echo "--------------------------------------------------------------------------------------------"
   echo "Deep Security Smart Check scan found some issues"
   echo "--------------------------------------------------------------------------------------------"
-
-  ID=$(cat status | jq .id)
-  if [ -z "${ID}" ] ; then
-    echo "Unknown ID, please re-run Smart Check scan."
-    exit -75
-  fi
+  
   MALWARE=`cat status | jq -r .findings.malware`
   if [[ $MALWARE -ne 0 ]] ; then
     echo "---> Malware detected!"
