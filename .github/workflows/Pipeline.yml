@@ -92,15 +92,6 @@ jobs:
                     "token": "",
                     "username": "",
                     "password": "",
-                    "aws": {
-                      "region": "us-east-1",
-                      "accessKeyID": "''${{ secrets.AWS_ACCESS_ID }}''",
-                      "secretAccessKey": "''${{ secrets.AWS_SECRET }}''",
-                      "role": "",
-                      "externalID": "",
-                      "roleSessionName": "",
-                      "registry": ""
-                    }
                   },
                   "insecureSkipVerify": true,
                   "rootCAs": ""
