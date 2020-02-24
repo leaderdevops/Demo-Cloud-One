@@ -86,7 +86,7 @@ jobs:
                 "source": {
                   "type": "docker",
                   "registry": "''${{ secrets.ECR_LOGIN }}''",
-                  "repository": "''${{ secrets.ECR_REPO }}''",
+                  "repository": "web-app",
                   "tag": "latest",
                   "credentials": {
                     "token": "",
