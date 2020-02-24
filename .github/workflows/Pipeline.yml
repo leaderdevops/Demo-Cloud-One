@@ -85,8 +85,8 @@ jobs:
                 "name": "Pipeline Scan",
                 "source": {
                   "type": "docker",
-                  "registry": "'${{ secrets.ECR_LOGIN }}'",
-                  "repository": "'${{ secrets.ECR_REPO }}'",
+                  "registry": "''${{ secrets.ECR_LOGIN }}''",
+                  "repository": "''${{ secrets.ECR_REPO }}''",
                   "tag": "latest",
                   "credentials": {
                     "token": "",
@@ -94,8 +94,8 @@ jobs:
                     "password": "",
                     "aws": {
                       "region": "us-east-1",
-                      "accessKeyID": "'${{ secrets.AWS_ACCESS_ID }}'",
-                      "secretAccessKey": "'${{ secrets.AWS_SECRET }}'",
+                      "accessKeyID": "''${{ secrets.AWS_ACCESS_ID }}''",
+                      "secretAccessKey": "''${{ secrets.AWS_SECRET }}''",
                       "role": "",
                       "externalID": "",
                       "roleSessionName": "",
