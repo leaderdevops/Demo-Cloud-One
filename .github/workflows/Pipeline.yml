@@ -105,7 +105,7 @@ jobs:
                   "insecureSkipVerify": true,
                   "rootCAs": ""
                 }
-              } ' | jq .href > href || exit -10
+              } 
       
          - name: Cointainer Successfully Scanned
            run : echo "CI Pipeline part finished successfully"
