@@ -1,13 +1,6 @@
 #!/bin/bash
 
-USER=${{ secrets.DSSC_USER }}
-ECR_BASE=${{ secrets.ECR_LOGIN }}
-ECR_REPO=${{ secrets.ECR_REPO }}
-
-PASSWORD=${{ secrets.DSSC_PSW }}
-SMART_CHECK=${{ secrets.DSSC_HOST }}
-URL=https://${SMART_CHECK}
-CURL=curl
+URL=https://'${{ secrets.DSSC_HOST }}'
 SCANURI=${URL}/api/scans
 SESSIONURI=${URL}/api/sessions
 CHANGEPASSWORDURI=${URL}/api/
@@ -15,22 +8,22 @@ CONTENTTYPE='context type application/json'
 PERMITTEDHIGHVULNERABILITIES=0
 OUT_OF_COMPLIANCE=0
 
-USER_JSON='{"user": {"userid":\"${USER}\","password":\"${PASSWORD}\"}}'
+USER_JSON='{"user": {"userid":\"${{ secrets.DSSC_USER }}\","password":\"${{ secrets.DSSC_PSW }}\"}}'
 
-${CURL} -sk -X POST ${SESSIONURI} -H 'Content-type:application/json' -H 'X-Api-Version:2018-05-01' -d '{"user": {"userid":"'${USER}'","password":"'${PASSWORD}'"}}'  > raw
+curl -sk -X POST ${SESSIONURI} -H 'Content-type:application/json' -H 'X-Api-Version:2018-05-01' -d '{"user": {"userid":"''${{ secrets.DSSC_USER }}''","password":"''${{ secrets.DSSC_PSW }}'''"}}'  > raw
 cat raw | jq .token  > token
 TEMP_TOKEN=`cat token`
 sed -e 's/^"//' -e 's/"$//' <<< ${TEMP_TOKEN} > token
 TOKEN=`cat token`
 
-${CURL} -sk -X POST ${SCANURI} -H 'Content-type:application/json' -H "Authorization: Bearer ${TOKEN}" \
+curl -sk -X POST ${SCANURI} -H 'Content-type:application/json' -H "Authorization: Bearer ${TOKEN}" \
     -d '{
   "id": "",
   "name": "myScan",
   "source": {
     "type": "docker",
-    "registry": "'${ECR_BASE}'",
-    "repository": "'${ECR_REPO}'",
+    "registry": "''${{ secrets.ECR_LOGIN }}''",
+    "repository": "''${{ secrets.ECR_REPO }}''",
     "tag": "latest",
     "credentials": {
       "token": "",
@@ -57,18 +50,18 @@ sed -e 's/^"//' -e 's/"$//' <<< ${TEMP_HREF} > href
 HREF=`cat href`
 
 
-${CURL} -sk -X GET ${URL}${HREF} -H 'Content-type:application/json' -H "Authorization: Bearer ${TOKEN}"  > status
+curl -sk -X GET ${URL}${HREF} -H 'Content-type:application/json' -H "Authorization: Bearer ${TOKEN}"  > status
 
 TMP=`grep pending status`
 while [  -n "$TMP"  ]; do
         sleep 1
-        ${CURL} -sk -X GET ${URL}${HREF} -H 'Content-type:application/json' -H "Authorization: Bearer ${TOKEN}" > status
+        curl -sk -X GET ${URL}${HREF} -H 'Content-type:application/json' -H "Authorization: Bearer ${TOKEN}" > status
         TMP=`grep pending  status`
 done
 TMP=`grep progress  status`
 while [  -n "$TMP"  ]; do
         sleep 1
-        ${CURL} -sk -X GET ${URL}${HREF} -H 'Content-type:application/json' -H "Authorization: Bearer ${TOKEN}" > status
+        curl-sk -X GET ${URL}${HREF} -H 'Content-type:application/json' -H "Authorization: Bearer ${TOKEN}" > status
         TMP=`grep progress  status`
 done
 
