@@ -79,8 +79,8 @@ jobs:
                 curl -sk -X POST https://'${{ secrets.DSSC_HOST }}'/api/sessions -H 'Content-type:application/json' -H 'X-Api-Version:2018-05-01' -d '{"user": {"userid":"'${{ secrets.DSSC_USER }}'","password":"'${{ secrets.DSSC_PSW }}'  > raw
                 cat raw | jq .token  > token
               fi
-              curl -sk -X POST https://''${{ secrets.DSSC_HOST }}'/api/scans -H 'Content-type:application/json' -H "Authorization: Bearer ${TOKEN}" \
-                  -d '{
+              curl -sk -X POST https://'${{ secrets.DSSC_HOST }}'/api/scans -H 'Content-type:application/json' -H "Authorization: Bearer ${TOKEN}" \
+              -d '{
                 "id": "",
                 "name": "Pipeline Scan",
                 "source": {
