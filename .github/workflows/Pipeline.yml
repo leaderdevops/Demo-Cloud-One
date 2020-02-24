@@ -74,7 +74,7 @@ jobs:
               cat raw | jq .token  > token
               TEMP_TOKEN=`cat token`
               sed -e 's/^"//' -e 's/"$//' <<< ${TEMP_TOKEN} > token
-              TOKEN=`cat token`
+              TOKEN='cat token'
               if [ -z ${TOKEN} ] ; then
                 curl -sk -X POST https://'${{ secrets.DSSC_HOST }}'/api/sessions -H 'Content-type:application/json' -H 'X-Api-Version:2018-05-01' -d '{"user": {"userid":"'${{ secrets.DSSC_USER }}'","password":"'${{ secrets.DSSC_PSW }}'  > raw
                 cat raw | jq .token  > token
