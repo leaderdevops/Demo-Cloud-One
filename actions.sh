@@ -1,11 +1,11 @@
 #!/bin/bash
 
-USER=${{ secrets.DSSC_USER }}
-ECR_BASE=${{ secrets.ECR_LOGIN }}
-ECR_REPO=${{ secrets.ECR_REPO }}
+USER='${{ secrets.DSSC_USER }}'
+ECR_BASE='${{ secrets.ECR_LOGIN }}'
+ECR_REPO='${{ secrets.ECR_REPO }}'
 
-NEW_PASSWORD=${{ secrets.DSSC_PSW }}
-SMART_CHECK=${{ secrets.DSSC_HOST }}
+NEW_PASSWORD='${{ secrets.DSSC_PSW }}'
+SMART_CHECK='${{ secrets.DSSC_HOST }}'
 ORIGNAL_PASSWORD=${NEW_PASSWORD}
 URL=https://${SMART_CHECK}
 CURL=curl
