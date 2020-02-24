@@ -1,37 +1,27 @@
 #!/bin/bash
 
-USER='${{ secrets.DSSC_USER }}'
-ECR_BASE='${{ secrets.ECR_LOGIN }}'
-ECR_REPO='${{ secrets.ECR_REPO }}'
+USER=${{ secrets.DSSC_USER }}
+ECR_BASE=${{ secrets.ECR_LOGIN }}
+ECR_REPO=${{ secrets.ECR_REPO }}
 
-NEW_PASSWORD='${{ secrets.DSSC_PSW }}'
-SMART_CHECK='${{ secrets.DSSC_HOST }}'
-ORIGNAL_PASSWORD=${NEW_PASSWORD}
+PASSWORD=${{ secrets.DSSC_PSW }}
+SMART_CHECK=${{ secrets.DSSC_HOST }}
 URL=https://${SMART_CHECK}
 CURL=curl
 SCANURI=${URL}/api/scans
 SESSIONURI=${URL}/api/sessions
 CHANGEPASSWORDURI=${URL}/api/
 CONTENTTYPE='context type application/json'
-PERMITTEDHIGHVULNERABILITIES=9999
-OUT_OF_COMPLIANCE=9999
+PERMITTEDHIGHVULNERABILITIES=0
+OUT_OF_COMPLIANCE=0
 
 USER_JSON='{"user": {"userid":\"${USER}\","password":\"${PASSWORD}\"}}'
 
-${CURL} -sk -X POST ${SESSIONURI} -H 'Content-type:application/json' -H 'X-Api-Version:2018-05-01' -d '{"user": {"userid":"'${USER}'","password":"'${ORIGNAL_PASSWORD}'"}}'  > raw
-cat raw | jq .user.passwordChangeRequired >changepassword
+${CURL} -sk -X POST ${SESSIONURI} -H 'Content-type:application/json' -H 'X-Api-Version:2018-05-01' -d '{"user": {"userid":"'${USER}'","password":"'${PASSWORD}'"}}'  > raw
 cat raw | jq .token  > token
 TEMP_TOKEN=`cat token`
 sed -e 's/^"//' -e 's/"$//' <<< ${TEMP_TOKEN} > token
 TOKEN=`cat token`
-
-if [ -z ${TOKEN} ] ; then
-  ${CURL} -sk -X POST ${SESSIONURI} -H 'Content-type:application/json' -H 'X-Api-Version:2018-05-01' -d '{"user": {"userid":"'${USER}'","password":"'${NEW_PASSWORD}'"}}'  > raw
-  cat raw | jq .token  > token
-  TEMP_TOKEN=`cat token`
-  sed -e 's/^"//' -e 's/"$//' <<< ${TEMP_TOKEN} > token
-  TOKEN=`cat token`
-fi
 
 ${CURL} -sk -X POST ${SCANURI} -H 'Content-type:application/json' -H "Authorization: Bearer ${TOKEN}" \
     -d '{
@@ -92,7 +82,12 @@ else
   echo "--------------------------------------------------------------------------------------------"
   echo "Deep Security Smart Check scan found some issues"
   echo "--------------------------------------------------------------------------------------------"
-  
+
+  ID=$(cat status | jq .id)
+  if [ -z "${ID}" ] ; then
+    echo "Unknown ID, please re-run Smart Check scan."
+    exit -75
+  fi
   MALWARE=`cat status | jq -r .findings.malware`
   if [[ $MALWARE -ne 0 ]] ; then
     echo "---> Malware detected!"
