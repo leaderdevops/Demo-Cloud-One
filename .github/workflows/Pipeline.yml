@@ -85,7 +85,7 @@ jobs:
                 "name": "Pipeline Scan",
                 "source": {
                   "type": "docker",
-                  "registry": "''${{ secrets.ECR_LOGIN }}''",
+                  "registry": "650143975734.dkr.ecr.us-east-1.amazonaws.com",
                   "repository": "web-app",
                   "tag": "latest",
                   "credentials": {
