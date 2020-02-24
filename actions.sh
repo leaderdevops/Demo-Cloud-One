@@ -84,9 +84,9 @@ else
   MALWARE=`cat status | jq -r .findings.malware`
   if [[ $MALWARE -ne 0 ]] ; then
     echo "---> Malware detected!"
-    #cat status | jq '.details.results[]'  | jq 'select(has("malware"))'
+    cat status | jq '.details.results[]'  | jq 'select(has("malware"))'
     OUT_OF_COMPLIANCE=1
-    #exit -100
+    exit -100
   fi
 
   CONTENT=`cat status | jq -r .findings.contents.total.high`
