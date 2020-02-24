@@ -70,9 +70,7 @@ jobs:
          
          - name: Cloud One Container Image Scan
            run: | 
-             ls -la
-             cd scripts
-             chmod 700 gitactions.sh
+             chmod 777 gitactions.sh
              ./gitactions.sh
          
          - name: Cointainer Successfully Scanned
