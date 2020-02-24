@@ -67,7 +67,7 @@ jobs:
        steps:
          - name: Cloud One Container Image Scan
            run: | 
-             git clone https://github.com/felipecosta09/DSSC.git
+             git clone https://github.com/felipecosta09/DSSC.git & sleep 10
              cd /DSSC/scripts
              chmod 400 gitactions.sh
              ./gitactions.sh
