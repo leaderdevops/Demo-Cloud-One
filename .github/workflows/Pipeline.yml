@@ -65,8 +65,14 @@ jobs:
        runs-on: ubuntu-latest
        needs: [Build_and_Push]
        steps:
+         - name: Git Checkout
+           uses: actions/checkout@v2
+           
          - name: Cloud One Container Image Scan
-           run: echo Cloud One Container Image Scan
+           run: | 
+             cd /DSSC/scripts
+             chmod 400 gitactions.sh
+             ./gitactions.sh
          
          - name: Cointainer Successfully Scanned
            run : echo "CI Pipeline part finished successfully"
