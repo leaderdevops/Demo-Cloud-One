@@ -4,12 +4,16 @@
 # Version      Date        Info
 # 1.0          2020        Initial Version
 #
-# Made by Felipe Costa.
+# Made by Felipe Costa
 #---------------------------------------------------------------------
 
 name: Protect CI/CD Pipelines
 env:
   AWS_REGION_NAME: "us-east-1"
+  CC_API: ${{ secrets.CC_API }}
+  CC_REGION: ${{ env.AWS_REGION_NAME }}
+  CC_RISK_LEVEL: "HIGH"
+  CFN_TEMPLATE_FILE_LOCATION: 
 
 on: 
   push:
