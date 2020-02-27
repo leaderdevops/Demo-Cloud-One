@@ -13,7 +13,6 @@ env:
   CC_API: ${{ secrets.CC_API }}
   CC_REGION: ${{ env.AWS_REGION_NAME }}
   CC_RISK_LEVEL: "HIGH"
-  CFN_TEMPLATE_FILE_LOCATION: 
 
 on: 
   push:
