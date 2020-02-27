@@ -51,7 +51,7 @@ jobs:
              aws-region           : us-east-1
          
          - name: Login to ECR
-           run: $(aws ecr get-login --no-include-email --region us-east-1
+           run: $(aws ecr get-login --no-include-email --region us-east-1)
          
          - name: Tag Docker Image
            run: docker tag web-app:latest ${{ secrets.ECR_LOGIN }}/web-app:latest
