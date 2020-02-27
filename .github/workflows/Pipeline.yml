@@ -8,11 +8,6 @@
 #---------------------------------------------------------------------
 
 name: Protect CI/CD Pipelines
-env:
-  AWS_REGION_NAME: "us-east-1"
-  CC_API: ${{ secrets.CC_API }}
-  CC_REGION: ${{ env.AWS_REGION_NAME }}
-  CC_RISK_LEVEL: "HIGH"
 
 on: 
   push:
