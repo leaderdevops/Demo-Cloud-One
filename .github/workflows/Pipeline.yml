@@ -24,9 +24,7 @@ jobs:
          - name: Cloud One Container Image Scan
            uses: "docker://deepsecurity/smartcheck-scan-action"
            with:
-              args: | 
-                    --version
-                    --help
+              args: |
                     --image-name 650143975734.dkr.ecr.us-east-1.amazonaws.com/djangonv
                     --smartcheck-host=container-security.tmselabs.com
                     --smartcheck-user=felipe_costa
