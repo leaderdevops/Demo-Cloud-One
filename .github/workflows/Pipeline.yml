@@ -17,51 +17,9 @@ on:
     branches:
       - master
 
-jobs:
-    Source_Code_Test:
-       runs-on: ubuntu-latest
-       steps:
-         
-         - name: Git Checkout
-           uses: actions/checkout@v2
- 
-         - name: Run Snyk to check for vulnerabilities
-           run: echo run Snyk to check for vulnerabilities
-           #uses: snyk/actions/maven@master
-           #env:
-            #SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-           #with:
-            #args: --severity-threshold=low
-                
-    Build_and_Push:
-       runs-on: ubuntu-latest
-       needs: [Source_Code_Test]
-       steps:
-         - name: Git Checkout
-           uses: actions/checkout@v2
-         
-         - name: Container Build
-           run : docker build -t web-app:latest .
-            
-         - name: Configure my AWS Credentils
-           uses: aws-actions/configure-aws-credentials@v1
-           with:
-             aws-access-key-id: ${{ secrets.AWS_ACCESS_ID }}
-             aws-secret-access-key: ${{ secrets.AWS_SECRET }}
-             aws-region           : us-east-1
-         
-         - name: Login to ECR
-           run: $(aws ecr get-login --no-include-email --region us-east-1)
-         
-         - name: Tag Docker Image
-           run: docker tag web-app:latest ${{ secrets.ECR_LOGIN }}/web-app:latest
-           
-         - name: Push Docker Image to ECR
-           run: docker push ${{ secrets.ECR_LOGIN }}/web-app:latest
-           
+jobs:      
     Container_Image_Scan:
        runs-on: ubuntu-latest
-       needs: [Build_and_Push]
        steps:
          - name: Git Checkout
            uses: actions/checkout@v2
@@ -108,47 +66,3 @@ jobs:
               } ' | jq .href > href || exit -10
          - name: Cointainer Successfully Scanned
            run : echo "CI Pipeline part finished successfully"
-    
-    Dev_Tests:
-       runs-on: ubuntu-latest
-       needs: [Container_Image_Scan]
-       steps:
-         - name: Configure my AWS Credentils
-           uses: aws-actions/configure-aws-credentials@v1
-           with:
-             aws-access-key-id: ${{ secrets.AWS_ACCESS_ID }}
-             aws-secret-access-key: ${{ secrets.AWS_SECRET }}
-             aws-region           : us-east-1
-         
-         - name: Dev Tests
-           run: echo Dev Tests
-      
-         - name: Unit Tests
-           run: echo Unit Tests
-           
-         - name: Dev Tests part finished successfully
-           run : echo "Dev Tests part finished successfully"
-       
-    Deploy:
-       runs-on: ubuntu-latest
-       needs: [Dev_Tests]
-       steps:
-         - name: Git Checkout
-           uses: actions/checkout@v2
-           
-         - name: AWS CF Deploy Tests
-           run: echo Template Validation #aws cloudformation validate-template --template-body file://cfn.yml
-      
-         - name: Conformity CF Deploy Tests
-           run: echo Conformity CF Deploy Test
-           
-         - name: Deploy to Fargate
-           run: echo Deploy to Fargate
-
-    Slack_Notification:
-       runs-on: ubuntu-latest
-       needs: [Deploy]
-       steps:
- 
-         - name: Slack Notification
-           run: echo Slack Notification
