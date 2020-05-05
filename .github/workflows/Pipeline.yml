@@ -23,3 +23,5 @@ jobs:
          
          - name: Cloud One Container Image Scan
            uses: "docker://deepsecurity/smartcheck-scan-action"
+           with:
+              args: "--version"
