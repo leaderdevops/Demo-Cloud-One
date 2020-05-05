@@ -25,8 +25,7 @@ jobs:
            uses: "docker://deepsecurity/smartcheck-scan-action"
            with:
               args: |
-                    --image-name 650143975734.dkr.ecr.us-east-1.amazonaws.com/djangonv
-                    --smartcheck-host container-security.tmselabs.com
+                    --image-name 650143975734.dkr.ecr.us-east-1.amazonaws.com/djangonv , --smartcheck-host container-security.tmselabs.com
                     --smartcheck-user felipe_costa
                     --smartcheck-password Trend@00p$
                     --insecure-skip-tls-verify
