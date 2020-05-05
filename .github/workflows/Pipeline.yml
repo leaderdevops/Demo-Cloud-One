@@ -13,9 +13,6 @@ on:
   push:
     branches: 
       - master
-  pull_request:
-    branches:
-      - master
 
 jobs:      
     Container_Image_Scan:
@@ -25,44 +22,4 @@ jobs:
            uses: actions/checkout@v2
          
          - name: Cloud One Container Image Scan
-           run: | 
-              curl -sk -X POST https://${{ secrets.DSSC_HOST }}/api/sessions -H 'Content-type:application/json' -H 'X-Api-Version:2018-05-01' -d '{"user": {"userid":${{ secrets.DSSC_USER }},"password":${{ secrets.DSSC_PSW }}}}  > raw
-              cat raw | jq .token  > token
-              TEMP_TOKEN='cat token'
-              sed -e 's/^"//' -e 's/"$//' <<< ${TEMP_TOKEN} > token
-              TOKEN='cat token'
-              if [ -z ${TOKEN} ] ; then
-                curl -sk -X POST https://${{ secrets.DSSC_HOST }}/api/sessions -H 'Content-type:application/json' -H 'X-Api-Version:2018-05-01' -d '{"user": {"userid":${{ secrets.DSSC_USER }},"password":${{ secrets.DSSC_USER }}}}  > raw
-                cat raw | jq .token  > token
-                TEMP_TOKEN='cat token'
-                sed -e 's/^"//' -e 's/"$//' <<< ${TEMP_TOKEN} > token
-                TOKEN='cat token'
-              fi
-              curl -sk -X POST https://${{ secrets.DSSC_HOST }}/api/scan -H 'Content-type:application/json' -H "Authorization: Bearer ${TOKEN}" \
-                  -d '{
-                "id": "",
-                "name": "Github Actions Scan",
-                "source": {
-                  "type": "docker",
-                  "registry": "'${{ secrets.ECR_LOGIN }}'",
-                  "repository": "${{ secrets.ECR_REPO }}",
-                  "tag": "latest",
-                  "credentials": {
-                    "token": "",
-                    "username": "",
-                    "password": "",
-                    "aws": {
-                      "region": "us-east-1",
-                      "accessKeyID": "",
-                      "secretAccessKey": "",
-                      "role": "",
-                      "externalID": "",
-                      "roleSessionName": "",
-                      "registry": ""
-                    }
-                  },
-                  "insecureSkipVerify": true,
-                  "rootCAs": "" }
-              } ' | jq .href > href || exit -10
-         - name: Cointainer Successfully Scanned
-           run : echo "CI Pipeline part finished successfully"
+           uses: "docker://deepsecurity/smartcheck-scan-action"
