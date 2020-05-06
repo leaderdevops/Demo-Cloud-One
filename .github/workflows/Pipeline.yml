@@ -14,9 +14,8 @@ on:
     branches: 
       - master
       
-
 jobs:      
-    Scan-Action:
+    SmartCheck-Scan-Action:
        runs-on: ubuntu-latest
        steps:
        - name: Deep Security Smart Check
