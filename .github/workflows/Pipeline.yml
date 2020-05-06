@@ -29,13 +29,14 @@ jobs:
        - name: Deep Security Smart Check
          uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.6-alpha
          env:
-          DSSC_SMARTCHECK_HOST : test.com;
-          DSSC_SMARTCHECK_USER: admin;
-          DSSC_SMARTCHECK_PASSWORD: 12345;
+          DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
+          DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
+          DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
           DSSC_INSECURE_SKIP_TLS_VERIFY: true;
           DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true;
           DSSC_IMAGE_NAME: 650143975734.dkr.ecr.us-east-1.amazonaws.com/djangonv
-          # DSSC_PULL_AUTH:{aws":{"region":"us-east-1","accessKeyID":"'$AWS_ACCESS_KEY_ID'","secretAccessKey":"'$AWS_SECRET_ACCESS_KEY'"}}
+          # DSSC_IMAGE_PULL_AUTH: {"username":"<user>","password":"<password>"} 
+          #{aws":{"region":"us-east-1","accessKeyID":"'$AWS_ACCESS_KEY_ID'","secretAccessKey":"'$AWS_SECRET_ACCESS_KEY'"}}
            
          # - name: Deep Security Smart Check Scan
          #  uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.5-alpha
