@@ -26,8 +26,17 @@ jobs:
     Scan-Action:
        runs-on: ubuntu-latest
        steps:
-         - name: Deep Security Smart Check Scan
-           uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.5-alpha
+       - name: Deep Security Smart Check
+         uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.6-alpha
+         with:
+          DSSC_SMARTCHECK_HOST : test.com;
+          DSSC_SMARTCHECK_USER: admin;
+          DSSC_SMARTCHECK_PASSWORD: 12345;
+
+             
+         
+         # - name: Deep Security Smart Check Scan
+         #  uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.5-alpha
          
          # - name: "Deep Security Smart Check Scan Action"
            # env:
