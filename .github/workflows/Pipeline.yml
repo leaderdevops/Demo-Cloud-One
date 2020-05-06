@@ -35,6 +35,7 @@ jobs:
           DSSC_INSECURE_SKIP_TLS_VERIFY: true;
           DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true;
           DSSC_IMAGE_NAME: 650143975734.dkr.ecr.us-east-1.amazonaws.com/djangonv
+          DSSC_IMAGE_PULL_AUTH: ${{ secrets.DSSC_IMAGE_PULL_AUTH }}
           # DSSC_IMAGE_PULL_AUTH: {"username":"<user>","password":"<password>"} 
           #{aws":{"region":"us-east-1","accessKeyID":"'$AWS_ACCESS_KEY_ID'","secretAccessKey":"'$AWS_SECRET_ACCESS_KEY'"}}
            
