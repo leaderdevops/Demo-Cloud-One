@@ -9,7 +9,7 @@
 
 name: Deep Security Smart Check
 
-env:
+# env:
     # DSSC_SMARTCHECK_HOST : ${{ secrets.DSSC_SMARTCHECK_HOST }}
     # DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
     # DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
