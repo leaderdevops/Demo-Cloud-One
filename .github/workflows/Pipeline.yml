@@ -15,12 +15,9 @@ on:
       - master
 
 jobs:      
-    Container_Image_Scan:
+    Scan-Action:
        runs-on: ubuntu-latest
        steps:
-         - name: Git Checkout
-           uses: actions/checkout@v2
-         
          - name: "Deep Security Smart Check Scan Action"
            env:
             DSSC_SMARTCHECK_HOST : ${{ secrets.DSSC_SMARTCHECK_HOST }}
