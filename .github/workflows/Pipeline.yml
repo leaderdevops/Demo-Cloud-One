@@ -19,7 +19,7 @@ jobs:
        runs-on: ubuntu-latest
        steps:
          - name: Deep Security Smart Check Scan
-           uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.0-beta
+           uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@latest
          
          # - name: "Deep Security Smart Check Scan Action"
            # env:
