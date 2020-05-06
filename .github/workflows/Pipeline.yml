@@ -24,8 +24,8 @@ jobs:
          - name: "Cloud One Container Image Scan"
            env:
             # DSSC_SMARTCHECK_HOST: container-security.tmselabs.com
-            DSSC_SMARTCHECK_USER: felipe_costa
-            DSSC_SMARTCHECK_PASSWORD: Trend@00p$
+            # DSSC_SMARTCHECK_USER: felipe_costa
+            # DSSC_SMARTCHECK_PASSWORD: Trend@00p$
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-           run: docker run -v /var/run/docker.sock:/var/run/docker.sock deepsecurity/smartcheck-scan-action --image-name=650143975734.dkr.ecr.us-east-1.amazonaws.com/djangonv --smartcheck-host=container-security.tmselabs.com --smartcheck-user=${{ secrets.DSSC_SMARTCHECK_USER }} --smartcheck-password=${{ secrets.DSSC_SMARTCHECK_PASSWORD }} --insecure-skip-tls-verify --insecure-skip-registry-tls-verify --image-pull-auth='{"aws":{"region":"us-east-1","accessKeyID":"'$AWS_ACCESS_KEY_ID'","secretAccessKey":"'$AWS_SECRET_ACCESS_KEY'"}}' # --findings-threshold '{"malware": 100, "vulnerabilities": { "defcon1": 100, "critical": 100, "high": 100 }, "contents": { "defcon1": 100, "critical": 100, "high": 100 }, "checklists": { "defcon1": 100, "critical": 100, "high": 100 }}'
+           run: docker run -v /var/run/docker.sock:/var/run/docker.sock deepsecurity/smartcheck-scan-action --image-name=650143975734.dkr.ecr.us-east-1.amazonaws.com/djangonv --smartcheck-host=container-security.tmselabs.com --smartcheck-user=felipe_costa --smartcheck-password=Trend@00p$ --insecure-skip-tls-verify --insecure-skip-registry-tls-verify --image-pull-auth='{"aws":{"region":"us-east-1","accessKeyID":"'$AWS_ACCESS_KEY_ID'","secretAccessKey":"'$AWS_SECRET_ACCESS_KEY'"}}' # --findings-threshold '{"malware": 100, "vulnerabilities": { "defcon1": 100, "critical": 100, "high": 100 }, "contents": { "defcon1": 100, "critical": 100, "high": 100 }, "checklists": { "defcon1": 100, "critical": 100, "high": 100 }}'
