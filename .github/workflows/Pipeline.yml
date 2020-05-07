@@ -18,21 +18,21 @@ jobs:
     SmartCheck-Scan-Action:
        runs-on: ubuntu-latest
        steps:
-        - name: Deep Security Smart Check Scan ECR
-          uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.10-alpha
-          with:
-            DSSC_IMAGE_NAME: 650143975734.dkr.ecr.us-east-1.amazonaws.com/djangonv
-            DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
-            DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
-            DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
-            DSSC_IMAGE_PULL_AUTH: ${{ secrets.DSSC_IMAGE_PULL_AUTH }}
-            DSSC_FINDINGS_THRESHOLD: '{"malware": 999, "vulnerabilities": { "defcon1": 999, "critical": 999, "high": 999 }, "contents": { "defcon1": 999, "critical": 999, "high": 999 }, "checklists": { "defcon1": 999, "critical": 999, "high": 999 }}'
-            DSSC_INSECURE_SKIP_TLS_VERIFY: true
-            DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true
+        # - name: Deep Security Smart Check Scan ECR
+        #   uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.10-alpha
+        #   with:
+        #     DSSC_IMAGE_NAME: 650143975734.dkr.ecr.us-east-1.amazonaws.com/djangonv
+        #     DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
+        #     DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
+        #     DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
+        #     DSSC_IMAGE_PULL_AUTH: ${{ secrets.DSSC_IMAGE_PULL_AUTH }}
+        #     DSSC_FINDINGS_THRESHOLD: '{"malware": 999, "vulnerabilities": { "defcon1": 999, "critical": 999, "high": 999 }, "contents": { "defcon1": 999, "critical": 999, "high": 999 }, "checklists": { "defcon1": 999, "critical": 999, "high": 999 }}'
+        #     DSSC_INSECURE_SKIP_TLS_VERIFY: true
+        #     DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true
         - name: Deep Security Smart Check Scan ACR
           uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.10-alpha
           with:
-            DSSC_IMAGE_NAME: moneyxfrontend.azurecr.io/moneyxfrontend
+            DSSC_IMAGE_NAME: moneyxfrontend.azurecr.io/moneyxfrontend:latest
             DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
             DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
             DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
