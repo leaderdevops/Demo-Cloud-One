@@ -32,7 +32,7 @@ jobs:
         - name: Deep Security Smart Check Scan ACR
           uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.10-alpha
           with:
-            DSSC_IMAGE_NAME: moneyxfrontend.azurecr.io/moneyxfrontend:latest
+            DSSC_IMAGE_NAME: bryce.azurecr.io/webapp:latest
             DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
             DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
             DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
