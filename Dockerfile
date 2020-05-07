@@ -1,4 +1,4 @@
-FROM httpd:2.4
+FROM alpine
 
 COPY private_unencrypted.pem /private_unencrypted.pem
 
