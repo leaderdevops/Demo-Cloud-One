@@ -19,7 +19,7 @@ jobs:
        runs-on: ubuntu-latest
        steps:
         - name: Deep Security Smart Check Scan ECR
-          uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.10-alpha
+          uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.0
           with:
             DSSC_IMAGE_NAME: 650143975734.dkr.ecr.us-east-1.amazonaws.com/djangonv
             DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
@@ -30,7 +30,7 @@ jobs:
             DSSC_INSECURE_SKIP_TLS_VERIFY: true
             DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true
         - name: Deep Security Smart Check Scan ACR
-          uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.10-alpha
+          uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.0
           with:
             DSSC_IMAGE_NAME: krish.azurecr.io/alpine
             DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
