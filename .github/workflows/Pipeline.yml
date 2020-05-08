@@ -20,12 +20,16 @@ jobs:
        steps:
           - uses: actions/checkout@v2
           - name: Cloud One Conformity Pipeline Scanner
-            uses: raphabot/conformity-template-scanner-pipeline@v18
+            uses: raphabot/conformity-template-scanner-pipeline@v19
             env:
               cc_apikey: ${{ secrets.apikey }}
-              acceptedQty: 10
+              maxExtreme: 0
+              maxVeryHigh: 1
+              macHigh: 3
+              maxMedium: 5
+              maxLow: 10
               cc_region: us-west-2
-              template: s3.template.yaml
+              templatePath: infrastructure.yaml
           - name: Deep Security Smart Check Scan ECR
             uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.0
             with:
