@@ -22,9 +22,9 @@ jobs:
           - name: Cloud One Conformity Pipeline Scanner
             uses: raphabot/conformity-template-scanner-pipeline@v16
             env:
-              apikey: ${{ secrets.apikey }}
+              cc_apikey: ${{ secrets.apikey }}
               acceptedQty: 10
-              region: us-west-2
+              cc_region: us-west-2
               template: s3.template.yaml
         # - name: Deep Security Smart Check Scan ECR
         #   uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.0
