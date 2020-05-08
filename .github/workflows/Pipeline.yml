@@ -18,9 +18,10 @@ jobs:
     SmartCheck-Scan-Action:
        runs-on: ubuntu-latest
        steps:
+          - uses: actions/checkout@v2
           - name: Cloud One Conformity Pipeline Scanner
             uses: raphabot/conformity-template-scanner-pipeline@v10
-            env:
+            with:
               apikey: ${{ secrets.apikey }}
               region: us-west-2
               acceptedQty: 10
