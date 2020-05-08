@@ -7,7 +7,7 @@
 # Made by Felipe Costa
 #---------------------------------------------------------------------
 
-name: Deep Security Smart Check
+name: CI/CD Security
 
 on: 
   push:
@@ -15,7 +15,7 @@ on:
       - master
       
 jobs:      
-    SmartCheck-Scan-Action:
+    CICD-Security:
        runs-on: ubuntu-latest
        steps:
           - uses: actions/checkout@v2
