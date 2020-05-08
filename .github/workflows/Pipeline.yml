@@ -23,7 +23,7 @@ jobs:
             uses: raphabot/conformity-template-scanner-pipeline@v17
             env:
               cc_apikey: ${{ secrets.apikey }}
-              acceptedQty: 5
+              acceptedQty: 10
               cc_region: us-west-2
               template: s3.template.yaml
         # - name: Deep Security Smart Check Scan ECR
