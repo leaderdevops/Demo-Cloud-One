@@ -20,7 +20,7 @@ jobs:
        steps:
           - uses: actions/checkout@v2
           - name: Cloud One Conformity Pipeline Scanner
-            uses: raphabot/conformity-template-scanner-pipeline@v11
+            uses: raphabot/conformity-template-scanner-pipeline@v12
             with:
               apikey: ${{ secrets.apikey }}
               region: us-west-2
