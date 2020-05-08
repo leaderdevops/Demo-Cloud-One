@@ -24,7 +24,7 @@ jobs:
             with:
               apikey: ${{ secrets.apikey }}
               region: us-west-2
-              acceptedQty: 10
+              acceptedQty: '10'
               template: s3.template.yaml
         # - name: Deep Security Smart Check Scan ECR
         #   uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.0
