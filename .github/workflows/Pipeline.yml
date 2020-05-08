@@ -19,7 +19,7 @@ jobs:
        runs-on: ubuntu-latest
        steps:
           - name: Cloud One Conformity Pipeline Scanner
-            uses: raphabot/conformity-template-scanner-pipeline@v9
+            uses: raphabot/conformity-template-scanner-pipeline@v10
             env:
               apikey: ${{ secrets.apikey }}
               region: us-west-2
