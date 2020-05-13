@@ -11,7 +11,6 @@ name: Build-and-Push
 
 env:
   PACKAGES_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
-  # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   # SNYK_TOKEN: ${{ secrets.SNYK_API }}
 
 on: 
