@@ -7,7 +7,7 @@
 # Made by Felipe Costa
 #---------------------------------------------------------------------
 
-name: Build_and_Push
+name: Build-and-Push
 
 env:
   PACKAGES_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
