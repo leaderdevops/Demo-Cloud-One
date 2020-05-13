@@ -1,6 +1,8 @@
 FROM frekele/gradle:2.4-jdk8
 
-RUN apt-get install debian-keyring debian-archive-keyring
+# RUN apt-get install debian-keyring debian-archive-keyring
+
+RUN apt-get -y upgrade
 
 RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main" > /etc/apt/sources.list
 
