@@ -20,14 +20,10 @@ on:
       - master
       
 jobs:      
-    Source_Code_Test:
-       runs-on: ubuntu-latest
-       steps:
-          - uses: actions/checkout@v2
     Build_and_Push:
-        needs: [Source_Code_Test]
         runs-on: ubuntu-latest
         steps:
+          - uses: actions/checkout@v2
           - name: Container Build
             run : |
               ls -la
