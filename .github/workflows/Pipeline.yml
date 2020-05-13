@@ -7,7 +7,7 @@
 # Made by Felipe Costa
 #---------------------------------------------------------------------
 
-name: CI/CD Security
+name: cicd-security
 
 on: 
   push:
