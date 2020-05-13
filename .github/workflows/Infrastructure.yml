@@ -25,8 +25,8 @@ jobs:
               cc_apikey: ${{ secrets.apikey }}
               maxExtreme: 0
               maxVeryHigh: 1
-              macHigh: 3
-              maxMedium: 5
-              maxLow: 10
+              macHigh: 1
+              maxMedium: 1
+              maxLow: 1
               cc_region: us-west-2
               templatePath: infrastructure.yaml
