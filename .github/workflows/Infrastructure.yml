@@ -19,14 +19,16 @@ jobs:
        runs-on: ubuntu-latest
        steps:
           - uses: actions/checkout@v2
+          - name: AWS CF Deploy Tests
+            run: aws cloudformation validate-template --region us-east-1 --template-body file://infrastructure.yaml
           - name: Cloud One Conformity Pipeline Scanner
             uses: raphabot/conformity-template-scanner-pipeline@v1.0.0
             env:
               cc_apikey: ${{ secrets.apikey }}
               maxExtreme: 0
-              maxVeryHigh: 1
-              macHigh: 1
-              maxMedium: 1
-              maxLow: 1
+              maxVeryHigh: 10
+              macHigh: 10
+              maxMedium: 10
+              maxLow: 10
               cc_region: us-west-2
               templatePath: infrastructure.yaml

@@ -7,7 +7,12 @@
 # Made by Felipe Costa
 #---------------------------------------------------------------------
 
-name: cicd-security
+name: Build_and_Push
+
+env:
+  PACKAGES_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  SNYK_TOKEN: ${{ secrets.SNYK_API }}
 
 on: 
   push:
@@ -15,29 +20,27 @@ on:
       - master
       
 jobs:      
-    CICD-Security:
+    Source_Code_Test:
        runs-on: ubuntu-latest
        steps:
           - uses: actions/checkout@v2
-          - name: Deep Security Smart Check Scan ECR
-            uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.0
-            with:
-              DSSC_IMAGE_NAME: 650143975734.dkr.ecr.us-east-1.amazonaws.com/djangonv
-              DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
-              DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
-              DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
-              DSSC_IMAGE_PULL_AUTH: ${{ secrets.DSSC_IMAGE_PULL_AUTH }}
-              DSSC_FINDINGS_THRESHOLD: '{"malware": 999, "vulnerabilities": { "defcon1": 999, "critical": 999, "high": 999 }, "contents": { "defcon1": 999, "critical": 999, "high": 999 }, "checklists": { "defcon1": 999, "critical": 999, "high": 999 }}'
-              DSSC_INSECURE_SKIP_TLS_VERIFY: true
-              DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true
-          - name: Deep Security Smart Check Scan ACR
-            uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.0
-            with:
-              DSSC_IMAGE_NAME: krish.azurecr.io/alpine
-              DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
-              DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
-              DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
-              DSSC_IMAGE_PULL_AUTH: '{"username": "${{ secrets.ACR_USER }}","password": "${{ secrets.ACR_PASSWORD }}"}'
-              DSSC_FINDINGS_THRESHOLD: '{"malware": 999, "vulnerabilities": { "defcon1": 999, "critical": 999, "high": 999 }, "contents": { "defcon1": 999, "critical": 999, "high": 999 }, "checklists": { "defcon1": 999, "critical": 999, "high": 999 }}'
-              DSSC_INSECURE_SKIP_TLS_VERIFY: true
-              DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true
+    Build_and_Push:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Container Build
+            run : |
+              cd frontend && docker build -t moneyx-frontend:latest .
+              cd ../backend && docker build -t moneyx-backend:latest .
+              cd ../djangonv && docker build -t djangonv:latest .
+          - name: Github Packages Login
+            run: docker login docker.pkg.github.com -u felipecosta09 -p ${{ secrets.PACKAGES_TOKEN }}
+          - name: Tag Docker Image
+            run: |
+              docker tag moneyx-frontend docker.pkg.github.com/felipecosta09/demo-cloud-one/moneyx-frontend:latest
+              docker tag moneyx-backend docker.pkg.github.com/felipecosta09/demo-cloud-one/moneyx-backend:latest
+              docker tag djangonv docker.pkg.github.com/felipecosta09/demo-cloud-one/djangonv:latest
+          - name: Push Docker Image to Github Packages
+            run: |
+              docker push docker.pkg.github.com/felipecosta09/demo-cloud-one/moneyx-frontend:latest
+              docker push docker.pkg.github.com/felipecosta09/demo-cloud-one/moneyx-backend:latest
+              docker push docker.pkg.github.com/felipecosta09/demo-cloud-one/djangonv:latest
