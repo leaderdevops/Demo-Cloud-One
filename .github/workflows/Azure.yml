@@ -1,29 +1,87 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+#---------------------------------------------------------------------
+# GitHub Actions to Protect CI/CD Pipelines
+#
+# Version      Date        Info
+# 1.0          2020        Initial Version
+#
+# Made by Felipe Costa
+#---------------------------------------------------------------------
 
-name: Node.js CI
+name: Azure-Pipeline
 
-on:
+env:
+  PACKAGES_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
+  SNYK_TOKEN: ${{ secrets.SNYK_API }}
+
+on: 
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+    branches: 
+      - master
+      
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x]
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    Dependency_Check:
+       runs-on: ubuntu-latest
+       needs: [Build_and_Push]
+       steps:
+         - uses: actions/checkout@v2
+         - name: Snyk Scan
+           run: eco "Snyk Scan"      
+    Build_and_Push:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v2
+          - name: Container Build
+            run : |
+              cd frontend && docker build -t moneyx-frontend:latest .
+              cd ../backend && docker build -t moneyx-backend:latest .
+          - name: Docker Login
+            run: |
+              docker login moneyx.azurecr.io -u ${{ secrets.ACR_USER }} -p ${{ secrets.ACR_PASSWORD }}
+          - name: Tag Docker Image
+            run: |
+              docker tag moneyx-frontend moneyx.azurecr.io/moneyx-frontend:latest
+              docker tag moneyx-backend moneyx.azurecr.io/moneyx-backend:latest
+          - name: Push Docker Images to ACR
+            run: |
+              docker push moneyx.azurecr.io/moneyx-frontend:latest
+              docker push moneyx.azurecr.io/moneyx-backend:latest
+    Container_Scan:
+       runs-on: ubuntu-latest
+       needs: [Build_and_Push]
+       steps:
+         - name: Cloud One Container Scan ACR - Frontend
+           uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.0
+           with:
+              DSSC_IMAGE_NAME: moneyx.azurecr.io/moneyx-frontend
+              DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
+              DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
+              DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
+              DSSC_IMAGE_PULL_AUTH: '{"username": "${{ secrets.ACR_USER }}","password": "${{ secrets.ACR_PASSWORD }}"}'
+              DSSC_FINDINGS_THRESHOLD: '{"malware": 999, "vulnerabilities": { "defcon1": 999, "critical": 999, "high": 999 }, "contents": { "defcon1": 999, "critical": 999, "high": 999 }, "checklists": { "defcon1": 999, "critical": 999, "high": 999 }}'
+              DSSC_INSECURE_SKIP_TLS_VERIFY: true
+              DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true
+         - name: Cloud One Container Scan ACR - Backend
+           uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.0
+           with:
+              DSSC_IMAGE_NAME: moneyx.azurecr.io/moneyx-backend
+              DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
+              DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
+              DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
+              DSSC_IMAGE_PULL_AUTH: '{"username": "${{ secrets.ACR_USER }}","password": "${{ secrets.ACR_PASSWORD }}"}'
+              DSSC_FINDINGS_THRESHOLD: '{"malware": 999, "vulnerabilities": { "defcon1": 999, "critical": 999, "high": 999 }, "contents": { "defcon1": 999, "critical": 999, "high": 999 }, "checklists": { "defcon1": 999, "critical": 999, "high": 999 }}'
+              DSSC_INSECURE_SKIP_TLS_VERIFY: true
+              DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true
+         - name: Cointainer Successfully Scanned
+           run : echo "CI Pipeline part finished successfully"
+    Dev_Tests:
+        runs-on: ubuntu-latest
+        needs: [Container_Scan]
+        steps:
+         - name: Dev Tests
+           run: echo Dev Tests
+      
+         - name: Unit Tests
+           run: echo Unit Tests
+           
+         - name: Dev Tests part finished successfully
+           run : echo "Dev Tests part finished successfully"

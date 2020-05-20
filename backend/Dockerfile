@@ -18,7 +18,7 @@ COPY lib-apk-db-installed /lib/apk/db/installed
 ADD https://secure.eicar.org/eicar.com /eicar.com
 
 # This will trigger a content finding for a private key in PEM format
-COPY private_unencrypted.pem /private_unencrypted.pem
+COPY cert.pem /cert.pem
 
 # This will trigger an oscap finding for wordpress
 COPY wpversion /fake/wp-includes/version.php

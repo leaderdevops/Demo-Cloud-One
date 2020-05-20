@@ -12,7 +12,7 @@ COPY appcode/ /usr/src/app
 COPY appcode/reset_db.sh /reset_db.sh
 # Get the "built" version of runapp.sh
 COPY appcode/runapp.sh /runapp.sh
-COPY private.key /private.key
+COPY cert.pem /cert.pem
 
 # This will trigger a malware finding
 ADD https://secure.eicar.org/eicar.com /eicar.com
@@ -23,9 +23,11 @@ RUN ["/reset_db.sh"]
 # Add Cloud One Application Security
 RUN pip install trend_app_protect
 ENV TREND_AP_LOG_FILE=STDERR
-ENV TREND_AP_KEY=2418e308-48e6-425a-8be3-ed6d20eb1367
-ENV TREND_AP_SECRET=07562a0a-d623-4791-883f-b81b14056650
+ENV TREND_AP_KEY=${{ secrets.TREND_AP_KEY }}
+ENV TREND_AP_SECRET=${{ secrets.TREND_AP_SECRET }}
 
+# Expose ports to internet
 EXPOSE 8000
 
+# Run the app
 CMD ["/runapp.sh"]
