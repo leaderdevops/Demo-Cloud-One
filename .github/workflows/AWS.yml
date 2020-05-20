@@ -28,13 +28,13 @@ on:
 jobs:
     Dependency_Check:
        runs-on: ubuntu-latest
-       needs: [Build_and_Push]
        steps:
          - uses: actions/checkout@v2
          - name: Snyk Scan
            run: echo "Snyk Scan"
     Build_and_Push:
         runs-on: ubuntu-latest
+        needs: [Dependency_Check]
         steps:
           - uses: actions/checkout@v2
           - name: Container Build
@@ -96,3 +96,10 @@ jobs:
            
          - name: Dev Tests part finished successfully
            run : echo "Dev Tests part finished successfully"
+    Deploy:
+        runs-on: ubuntu-latest
+        needs: [Dev_Tests]
+        steps:
+         - name: Deploy Frontend to Fargate
+           run: | 
+              echo "Deployed"
