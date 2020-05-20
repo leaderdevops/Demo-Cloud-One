@@ -23,8 +23,8 @@ RUN ["/reset_db.sh"]
 # Add Cloud One Application Security
 RUN pip install trend_app_protect
 ENV TREND_AP_LOG_FILE=STDERR
-ENV TREND_AP_KEY=${{ secrets.TREND_AP_KEY }}
-ENV TREND_AP_SECRET=${{ secrets.TREND_AP_SECRET }}
+ENV TREND_AP_KEY=$TREND_AP_KEY
+ENV TREND_AP_SECRET=$TREND_AP_SECRET
 
 # Expose ports to internet
 EXPOSE 8000

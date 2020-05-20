@@ -27,8 +27,8 @@ RUN gradle bootRepackage
 ADD https://files.trendmicro.com/products/CloudOne/ApplicationSecurity/1.0/trend_app_protect-4.1.2.jar trend_app_protect-4.1.2.jar
 CMD java -javaagent:trend_app_protect-4.1.2.jar -jar build/libs/moneyx.jar
 ENV TREND_AP_LOG_FILE=STDERR
-ENV TREND_AP_KEY=${{ secrets.TREND_AP_KEY }}
-ENV TREND_AP_SECRET=${{ secrets.TREND_AP_SECRET }}
+ENV TREND_AP_KEY=$TREND_AP_KEY
+ENV TREND_AP_SECRET=$TREND_AP_SECRET
 
 # Expose ports to internet
 EXPOSE 8080
