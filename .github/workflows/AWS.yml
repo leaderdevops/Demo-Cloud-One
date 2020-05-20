@@ -12,6 +12,13 @@ name: AWS-Pipeline
 env:
   PACKAGES_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
   SNYK_TOKEN: ${{ secrets.SNYK_API }}
+  TREND_AP_KEY: ${{ secrets.TREND_AP_KEY }}
+  TREND_AP_SECRET: ${{ secrets.TREND_AP_SECRET }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
+  DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
+  DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
 
 on: 
   push:
@@ -25,7 +32,7 @@ jobs:
        steps:
          - uses: actions/checkout@v2
          - name: Snyk Scan
-           run: eco "Snyk Scan"
+           run: echo "Snyk Scan"
     Build_and_Push:
         runs-on: ubuntu-latest
         steps:
@@ -38,8 +45,8 @@ jobs:
             id: login-ecr
             uses: aws-actions/amazon-ecr-login@v1
             env:
-              AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-              AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+              AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+              AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
               AWS_REGION: us-east-1
           - name: Tag Docker Image
             run: |

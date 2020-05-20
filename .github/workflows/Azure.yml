@@ -32,7 +32,7 @@ jobs:
        steps:
          - uses: actions/checkout@v2
          - name: Snyk Scan
-           run: eco "Snyk Scan"      
+           run: echo "Snyk Scan"      
     Build_and_Push:
         runs-on: ubuntu-latest
         steps:
