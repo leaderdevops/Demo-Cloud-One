@@ -57,7 +57,7 @@ jobs:
        needs: [Build_and_Push]
        steps:
          - name: Cloud One Container Scan ACR - Frontend
-           uses: felipecosta09/Cloud-One-Container-Security-Scan-Action@v1.0.2
+           uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.2
            with:
               DSSC_IMAGE_NAME: moneyx.azurecr.io/moneyx-frontend
               DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
@@ -68,7 +68,7 @@ jobs:
               DSSC_INSECURE_SKIP_TLS_VERIFY: true
               DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true
          - name: Cloud One Container Scan ACR - Backend
-           uses: felipecosta09/Cloud-One-Container-Security-Scan-Action@v1.0.2
+           uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.2
            with:
               DSSC_IMAGE_NAME: moneyx.azurecr.io/moneyx-backend
               DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
