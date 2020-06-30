@@ -66,12 +66,12 @@ jobs:
               AWS_REGION: us-east-1
           - name: Tag Docker Image
             run: |
-              docker tag moneyx-frontend 650143975734.dkr.ecr.us-east-1.amazonaws.com/moneyx-frontend:latest
-              docker tag moneyx-backend 650143975734.dkr.ecr.us-east-1.amazonaws.com/moneyx-backend:latest
+              docker tag moneyx-frontend 789900764224.dkr.ecr.us-east-1.amazonaws.com/moneyx-frontend:latest
+              docker tag moneyx-backend 789900764224.dkr.ecr.us-east-1.amazonaws.com/moneyx-backend:latest
           - name: Push Docker Images to ECR
             run: |
-              docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/moneyx-frontend:latest
-              docker push 650143975734.dkr.ecr.us-east-1.amazonaws.com/moneyx-backend:latest
+              docker push 789900764224.dkr.ecr.us-east-1.amazonaws.com/moneyx-frontend:latest
+              docker push 789900764224.dkr.ecr.us-east-1.amazonaws.com/moneyx-backend:latest
     Container_Scan:
        runs-on: ubuntu-latest
        needs: [Build_and_Push]
@@ -79,7 +79,7 @@ jobs:
          - name: Cloud One Container Scan ECR - Frontend
            uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.2
            with:
-              DSSC_IMAGE_NAME: 650143975734.dkr.ecr.us-east-1.amazonaws.com/moneyx-frontend
+              DSSC_IMAGE_NAME: 789900764224.dkr.ecr.us-east-1.amazonaws.com/moneyx-frontend
               DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
               DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
               DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
@@ -90,7 +90,7 @@ jobs:
          - name: Cloud One Container Scan ECR - Backend
            uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.2
            with:
-              DSSC_IMAGE_NAME: 650143975734.dkr.ecr.us-east-1.amazonaws.com/moneyx-backend
+              DSSC_IMAGE_NAME: 789900764224.dkr.ecr.us-east-1.amazonaws.com/moneyx-backend
               DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
               DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
               DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
