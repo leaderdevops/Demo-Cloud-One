@@ -60,8 +60,12 @@ jobs:
             run: |
               docker tag moneyx-frontend felipecosta09/moneyx-frontend:latest
               docker tag moneyx-backend felipecosta09/moneyx-backend:latest
-          - name: Docker Login
-            run: docker login -u ${{ secrets.DOCKERHUB_USER }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+          - name: Cloud One Container Sca  
+            uses: azure/docker-login@v1
+            with:
+              login-server: 'registry.hub.docker.com' # default: index.docker.io
+              username: '${{ secrets.DOCKERHUB_USER }}'
+              password: '${{ secrets.DOCKERHUB_PASSWORD }}'
           - name: Push Docker Images to DockerHub
             run: |
               docker push felipecosta09/moneyx-frontend:latest
