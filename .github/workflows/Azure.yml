@@ -64,7 +64,7 @@ jobs:
             uses: azure/docker-login@v1
             with:
               login-server: 'registry.hub.docker.com' # default: index.docker.io
-              username: '${{ secrets.DOCKERHUB_USER }}'
+              username: 'felipecosta09'
               password: '${{ secrets.DOCKERHUB_PASSWORD }}'
           - name: Push Docker Images to DockerHub
             run: |
