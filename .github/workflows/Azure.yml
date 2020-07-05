@@ -43,6 +43,7 @@ jobs:
            uses: github/codeql-action/analyze@v1
     Dependency_Check:
        runs-on: ubuntu-latest
+       needs: [Code_Scan]
        steps:
          - uses: actions/checkout@v2
          - name: Snyk Scan
@@ -77,10 +78,10 @@ jobs:
               DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
               DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
               DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
-              DSSC_IMAGE_PULL_AUTH: '{"username": "$DOCKERHUB_USERNAME","password": "$DOCKERHUB_PASSWORD"}'
+              DSSC_IMAGE_PULL_AUTH: '{"username": $DOCKERHUB_USERNAME,"password": $DOCKERHUB_PASSWORD}'
               DSSC_FINDINGS_THRESHOLD: '{"malware": 999, "vulnerabilities": { "defcon1": 999, "critical": 999, "high": 999 }, "contents": { "defcon1": 999, "critical": 999, "high": 999 }, "checklists": { "defcon1": 999, "critical": 999, "high": 999 }}'
               DSSC_INSECURE_SKIP_TLS_VERIFY: true
-              DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true
+              DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true                 
          - name: Cloud One Container Scan DockerHub - Backend
            uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.2
            with:
