@@ -14,8 +14,8 @@ env:
   SNYK_TOKEN: ${{ secrets.SNYK_API }}
   TREND_AP_KEY: ${{ secrets.TREND_AP_KEY }}
   TREND_AP_SECRET: ${{ secrets.TREND_AP_SECRET }}
-  ACR_USER: ${{ secrets.ACR_USER }}
-  ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
+  DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
+  DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
   DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
   DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
   DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
@@ -58,38 +58,38 @@ jobs:
               cd ../backend && docker build -t moneyx-backend:latest .
           - name: Docker Login
             run: |
-              docker login moneyx.azurecr.io -u $ACR_USER -p $ACR_PASSWORD
+              docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
           - name: Tag Docker Image
             run: |
-              docker tag moneyx-frontend moneyx.azurecr.io/moneyx-frontend:latest
-              docker tag moneyx-backend moneyx.azurecr.io/moneyx-backend:latest
-          - name: Push Docker Images to ACR
+              docker tag moneyx-frontend felipecosta09/moneyx-frontend:latest
+              docker tag moneyx-backend felipecosta09/moneyx-backend:latest
+          - name: Push Docker Images to DockerHub
             run: |
-              docker push moneyx.azurecr.io/moneyx-frontend:latest
-              docker push moneyx.azurecr.io/moneyx-backend:latest
+              docker push felipecosta09/moneyx-frontend:latest
+              docker push felipecosta09/moneyx-backend:latest
     Container_Scan:
        runs-on: ubuntu-latest
        needs: [Build_and_Push]
        steps:
-         - name: Cloud One Container Scan ACR - Frontend
+         - name: Cloud One Container Scan DockerHub - Frontend
            uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.2
            with:
-              DSSC_IMAGE_NAME: moneyx.azurecr.io/moneyx-frontend
+              DSSC_IMAGE_NAME: felipecosta09/moneyx-frontend
               DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
               DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
               DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
-              DSSC_IMAGE_PULL_AUTH: '{"username": "${{ secrets.ACR_USER }}","password": "${{ secrets.ACR_PASSWORD }}"}'
+              DSSC_IMAGE_PULL_AUTH: '{"username": "${{ secrets.DOCKERHUB_USER }}","password": "${{ secrets.DOCKERHUB_PASSWORD }}"}'
               DSSC_FINDINGS_THRESHOLD: '{"malware": 999, "vulnerabilities": { "defcon1": 999, "critical": 999, "high": 999 }, "contents": { "defcon1": 999, "critical": 999, "high": 999 }, "checklists": { "defcon1": 999, "critical": 999, "high": 999 }}'
               DSSC_INSECURE_SKIP_TLS_VERIFY: true
               DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true
-         - name: Cloud One Container Scan ACR - Backend
+         - name: Cloud One Container Scan DockerHub - Backend
            uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.2
            with:
-              DSSC_IMAGE_NAME: moneyx.azurecr.io/moneyx-backend
+              DSSC_IMAGE_NAME: felipecosta09/moneyx-backend
               DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
               DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
               DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
-              DSSC_IMAGE_PULL_AUTH: '{"username": "${{ secrets.ACR_USER }}","password": "${{ secrets.ACR_PASSWORD }}"}'
+              DSSC_IMAGE_PULL_AUTH: '{"username": "${{ secrets.DOCKERHUB_USER }}","password": "${{ secrets.DOCKERHUB_PASSWORD }}"}'
               DSSC_FINDINGS_THRESHOLD: '{"malware": 999, "vulnerabilities": { "defcon1": 999, "critical": 999, "high": 999 }, "contents": { "defcon1": 999, "critical": 999, "high": 999 }, "checklists": { "defcon1": 999, "critical": 999, "high": 999 }}'
               DSSC_INSECURE_SKIP_TLS_VERIFY: true
               DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true
@@ -112,17 +112,5 @@ jobs:
         needs: [Dev_Tests]
         steps:
          - name: 'Login via Azure CLI'
-           uses: azure/login@v1
-           with:
-            creds: ${{ secrets.AZ_CLI }}
-         - name: Deploy Frontend to Azure Web App for Container
-           uses: azure/webapps-deploy@v2
-           with:
-              app-name: moneyx-frontend
-              images: moneyx.azurecr.io/moneyx-frontend:latest
-         - name: Deploy Backend to Azure Web App for Container
-           uses: azure/webapps-deploy@v2
-           with:
-              app-name: moneyx-backend 
-              images: moneyx.azurecr.io/moneyx-backend:latest
+           run: echo "Deploy to Azure"
          
