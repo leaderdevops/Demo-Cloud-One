@@ -24,8 +24,8 @@ RUN git clone --depth=1 https://github.com/nVisium/MoneyX.git .
 RUN gradle bootRepackage
 
 # Add Cloud One Application Security
-ADD https://files.trendmicro.com/products/CloudOne/ApplicationSecurity/1.0/trend_app_protect-4.1.2.jar trend_app_protect-4.1.2.jar
-CMD java -javaagent:trend_app_protect-4.1.2.jar -jar build/libs/moneyx.jar
+ADD https://files.trendmicro.com/products/CloudOne/ApplicationSecurity/1.0.2/agent-java/trend_app_protect-4.2.0.jar trend_app_protect-4.2.0.jar
+CMD java -javaagent:trend_app_protect-4.2.0.jar -jar build/libs/moneyx.jar
 ENV TREND_AP_LOG_FILE=STDERR
 ENV TREND_AP_KEY=$TREND_AP_KEY
 ENV TREND_AP_SECRET=$TREND_AP_SECRET
