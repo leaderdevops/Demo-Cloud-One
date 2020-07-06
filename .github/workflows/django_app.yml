@@ -14,7 +14,7 @@ env:
   SNYK_TOKEN: ${{ secrets.SNYK_API }}
   TREND_AP_KEY: ${{ secrets.TREND_AP_KEY }}
   TREND_AP_SECRET: ${{ secrets.TREND_AP_SECRET }}
-  DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USER }}
   DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
   DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
   DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
@@ -55,44 +55,30 @@ jobs:
           - uses: actions/checkout@v2
           - name: Container Build
             run : |
-              cd frontend && docker build -t moneyx-frontend:latest .
-              cd ../backend && docker build -t moneyx-backend:latest .
+              cd djangonv docker build -t djangonv_app:latest .
           - name: Tag Docker Image
             run: |
-              docker tag moneyx-frontend felipecosta09/moneyx-frontend:latest
-              docker tag moneyx-backend felipecosta09/moneyx-backend:latest
+              docker tag djangonv_app:latest felipecosta09/djangonv_app:latest
           - name: Docker Login  
             run: docker login -u felipecosta09 -p ${{ secrets.DOCKERHUB_PASSWORD }}
           - name: Push Docker Images to DockerHub
             run: |
-              docker push felipecosta09/moneyx-frontend:latest
-              docker push felipecosta09/moneyx-backend:latest
+              docker push felipecosta09/djangonv_app:latest
     Container_Scan:
        runs-on: ubuntu-latest
        needs: [Build_and_Push]
        steps:
-         - name: Cloud One Container Scan DockerHub - Frontend
+         - name: Cloud One Container Scan DockerHub - Djangonv
            uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.2
            with:
-              DSSC_IMAGE_NAME: registry.hub.docker.com/felipecosta09/moneyx-frontend
+              DSSC_IMAGE_NAME: registry.hub.docker.com/felipecosta09/djangonv_app
               DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
               DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
               DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
-              DSSC_IMAGE_PULL_AUTH: '{"username": $DOCKERHUB_USERNAME,"password": $DOCKERHUB_PASSWORD}'
+              DSSC_IMAGE_PULL_AUTH: '{"username": "${{ secrets.DOCKERHUB_USERNAME }}","password": "${{ secrets.DOCKERHUB_PASSWORD }}"}'
               DSSC_FINDINGS_THRESHOLD: '{"malware": 999, "vulnerabilities": { "defcon1": 999, "critical": 999, "high": 999 }, "contents": { "defcon1": 999, "critical": 999, "high": 999 }, "checklists": { "defcon1": 999, "critical": 999, "high": 999 }}'
               DSSC_INSECURE_SKIP_TLS_VERIFY: true
               DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true                 
-         - name: Cloud One Container Scan DockerHub - Backend
-           uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.2
-           with:
-              DSSC_IMAGE_NAME: registry.hub.docker.com/felipecosta09/moneyx-backend
-              DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
-              DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
-              DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
-              DSSC_IMAGE_PULL_AUTH: '{"username": "${{ secrets.DOCKERHUB_USER }}","password": "${{ secrets.DOCKERHUB_PASSWORD }}"}'
-              DSSC_FINDINGS_THRESHOLD: '{"malware": 999, "vulnerabilities": { "defcon1": 999, "critical": 999, "high": 999 }, "contents": { "defcon1": 999, "critical": 999, "high": 999 }, "checklists": { "defcon1": 999, "critical": 999, "high": 999 }}'
-              DSSC_INSECURE_SKIP_TLS_VERIFY: true
-              DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true
          - name: Cointainer Successfully Scanned
            run : echo "CI Pipeline part finished successfully"
     Dev_Tests:
@@ -111,6 +97,6 @@ jobs:
         runs-on: ubuntu-latest
         needs: [Dev_Tests]
         steps:
-         - name: 'Login via Azure CLI'
-           run: echo "Deploy to Azure"
+         - name: 'Deploy to Production'
+           run: echo "Deploy to Production"
          
