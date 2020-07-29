@@ -18,6 +18,7 @@ jobs:
     Cloud-One-Conformity-Scan-Security:
        runs-on: ubuntu-latest
        steps:
+          - uses: actions/checkout@v2
           - name: Cloud One Conformity Pipeline Scanner
             uses: raphabot/conformity-template-scanner-pipeline@v1.0.0
             env:
