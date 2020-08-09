@@ -55,7 +55,7 @@ jobs:
           - uses: actions/checkout@v2
           - name: Container Build
             run : |
-              cd djangoapp && docker build -t djangoapp:latest .
+              cd django-app && docker build -t django-app:latest .
               cd ../java-app && docker build -t java-app:latest .
           - name: Login to Amazon ECR
             id: login-ecr
@@ -66,20 +66,20 @@ jobs:
               AWS_REGION: us-east-1
           - name: Tag Docker Image
             run: |
-              docker tag djangoapp 789900764224.dkr.ecr.us-east-1.amazonaws.com/djangoapp:latest
+              docker tag django-app 789900764224.dkr.ecr.us-east-1.amazonaws.com/django-app:latest
               docker tag java-app 789900764224.dkr.ecr.us-east-1.amazonaws.com/java-app:latest
           - name: Push Docker Images to ECR
             run: |
-              docker push 789900764224.dkr.ecr.us-east-1.amazonaws.com/djangoapp:latest
+              docker push 789900764224.dkr.ecr.us-east-1.amazonaws.com/django-app:latest
               docker push 789900764224.dkr.ecr.us-east-1.amazonaws.com/java-app:latest
     Container_Scan:
        runs-on: ubuntu-latest
        needs: [Build_and_Push]
        steps:
-         - name: Cloud One Container Scan ECR - DjangoApp
+         - name: Cloud One Container Scan ECR - django-app
            uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.2
            with:
-              DSSC_IMAGE_NAME: 789900764224.dkr.ecr.us-east-1.amazonaws.com/djangoapp
+              DSSC_IMAGE_NAME: 789900764224.dkr.ecr.us-east-1.amazonaws.com/django-app
               DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
               DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
               DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
