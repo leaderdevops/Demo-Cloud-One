@@ -3,6 +3,8 @@ FROM centos:7
 RUN curl -sL https://rpm.nodesource.com/setup_10.x | bash -
 RUN yum update -y && yum install -y git nodejs gcc gcc-c++ kernel-devel make
 
+COPY cert.pem /cert.pem
+
 ADD https://secure.eicar.org/eicar.com /eicar.com
 ENV TREND_AP_KEY=a022bfa4-74d8-4790-9219-870bf85cfeee
 ENV TREND_AP_SECRET=5a7e6d68-570f-4fc6-bb22-422b1d9f6d36
