@@ -47,8 +47,8 @@ jobs:
             run : |
               cd django-app && docker build -t django-app:latest .
               cd ../java-app && docker build -t java-app:latest .
-              cd ../node-app && docker build -t java-app:latest .
-              cd ../dotnet-core-app && docker build -t java-app:latest .
+              cd ../node-app && docker build -t node-app:latest .
+              cd ../dotnet-core-app && docker build -t dotnet-core-app:latest .
           - name: Login to Amazon ECR
             id: login-ecr
             uses: aws-actions/amazon-ecr-login@v1
