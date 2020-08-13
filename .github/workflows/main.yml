@@ -20,16 +20,14 @@ jobs:
         steps:
           - uses: actions/checkout@v2
           - name: Container Build
-            run : cd django-app && docker build -t django-app:latest .
+            run : cd django-app && docker build -t django-app .
           - name: Cloud One Container Scan DockerHub - Djangonv
             uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.2
             with:
               DSSC_IMAGE_NAME: django-app
-              DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
-              DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
-              DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
-              # DSSC_IMAGE_PULL_AUTH: '{"username": "${{ secrets.DOCKERHUB_USERNAME }}","password": "${{ secrets.DOCKERHUB_PASSWORD }}"}'
-              DSSC_FINDINGS_THRESHOLD: '{"malware": 999, "vulnerabilities": { "defcon1": 999, "critical": 999, "high": 999 }, "contents": { "defcon1": 999, "critical": 999, "high": 999 }, "checklists": { "defcon1": 999, "critical": 999, "high": 999 }}'
+              DSSC_SMARTCHECK_HOST: container-security.tmselabs.com
+              DSSC_SMARTCHECK_USER: test
+              DSSC_SMARTCHECK_PASSWORD: test123
               DSSC_PREREGISTRY_HOST: ${{ secrets.DSSC_PREREGISTRY_HOST }}
               DSSC_PREREGISTRY_USER: ${{ secrets.DSSC_PREREGISTRY_USER }}
               DSSC_PREREGISTRY_PASSWORD: ${{ secrets.DSSC_PREREGISTRY_PASSWORD }}
