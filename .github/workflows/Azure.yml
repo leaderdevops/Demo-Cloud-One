@@ -20,7 +20,7 @@ env:
   DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
   DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
 
-on: pull_request
+on: push
       
 jobs:
     Code_Scan:
