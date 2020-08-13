@@ -20,10 +20,7 @@ env:
   DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
   DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
 
-on: 
-  push:
-    branches: 
-      - master
+on: pull_request
       
 jobs:
     Code_Scan:
@@ -134,6 +131,6 @@ jobs:
         runs-on: ubuntu-latest
         needs: [Dev_Tests]
         steps:
-         - name: Deploy Frontend to Fargate
+         - name: Deploy to AWS
            run: | 
               echo "Deployed"
