@@ -27,16 +27,15 @@ jobs:
        runs-on: ubuntu-latest
        needs: [Build]
        steps:
-         - name: Cloud One Container Scan DockerHub - Djangonv
+         - name: Cloud One Container Scan - Djangonv
            uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.2
            with:
               DSSC_IMAGE_NAME: django-app
               DSSC_SMARTCHECK_HOST: container-security.tmselabs.com
               DSSC_SMARTCHECK_USER: test
               DSSC_SMARTCHECK_PASSWORD: test123
-              DSSC_FINDINGS_THRESHOLD: '{"malware": 999, "vulnerabilities": { "defcon1": 999, "critical": 999, "high": 999 }, "contents": { "defcon1": 999, "critical": 999, "high": 999 }, "checklists": { "defcon1": 999, "critical": 999, "high": 999 }}'
               DSSC_PREREGISTRY_SCAN: true
-              DSSC_PREREGISTRY_HOST: ${{ secrets.DSSC_PREREGISTRY_HOST }}
+              DSSC_PREREGISTRY_HOST: registry.tmselabs.com
               DSSC_PREREGISTRY_USER: ${{ secrets.DSSC_PREREGISTRY_USER }}
               DSSC_PREREGISTRY_PASSWORD: ${{ secrets.DSSC_PREREGISTRY_PASSWORD }}
          - name: Cointainer Successfully Scanned
