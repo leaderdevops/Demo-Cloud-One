@@ -24,7 +24,7 @@ jobs:
           - name: Cloud One Container Scan DockerHub - Djangonv
             uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.2
             with:
-              DSSC_IMAGE_NAME: django-app
+              DSSC_IMAGE_NAME: ${{ secrets.DSSC_PREREGISTRY_HOST }}/django-app
               DSSC_SMARTCHECK_HOST: container-security.tmselabs.com
               DSSC_SMARTCHECK_USER: test
               DSSC_SMARTCHECK_PASSWORD: test123
