@@ -15,7 +15,7 @@ on:
       - master
       
 jobs:      
-    Build_and_Scan:
+    PreScan_Pipeline:
         runs-on: ubuntu-latest
         steps:
           - uses: actions/checkout@v2
