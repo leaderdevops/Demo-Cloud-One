@@ -39,4 +39,3 @@ jobs:
             run: docker login -u felipecosta09 -p ${{ secrets.DOCKERHUB_PASSWORD }}
           - name: Container Push
             run : docker push felipecosta09/django-app:latest
-         
