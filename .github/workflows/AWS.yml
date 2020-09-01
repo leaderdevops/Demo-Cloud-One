@@ -20,7 +20,7 @@ env:
   DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
   DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
 
-on: pull_request
+on: push
       
 jobs:
     Code_Scan:
@@ -55,16 +55,16 @@ jobs:
               AWS_REGION: us-east-1
           - name: Tag Docker Image
             run: |
-              docker tag django-app felipecosta09/django-app:latest
-              docker tag java-app felipecosta09/java-app:latest
-              docker tag node-app felipecosta09/node-app:latest
-              docker tag dotnet-core-app felipecosta09/dotnet-core-app:latest
+              docker tag django-app 789900764224.dkr.ecr.us-east-1.amazonaws.com/django-app:latest
+              docker tag java-app 789900764224.dkr.ecr.us-east-1.amazonaws.com/java-app:latest
+              docker tag node-app 789900764224.dkr.ecr.us-east-1.amazonaws.com/node-app:latest
+              docker tag dotnet-core-app 789900764224.dkr.ecr.us-east-1.amazonaws.com/dotnet-core-app:latest
           - name: Push Docker Images to ECR
             run: |
-              docker push felipecosta09/django-app:latest
-              docker push felipecosta09/java-app:latest
-              docker push felipecosta09/node-app:latest
-              docker push felipecosta09/dotnet-core-app:latest
+              docker push 789900764224.dkr.ecr.us-east-1.amazonaws.com/django-app:latest
+              docker push 789900764224.dkr.ecr.us-east-1.amazonaws.com/java-app:latest
+              docker push 789900764224.dkr.ecr.us-east-1.amazonaws.com/node-app:latest
+              docker push 789900764224.dkr.ecr.us-east-1.amazonaws.com/dotnet-core-app:latest
     Container_Scan:
        runs-on: ubuntu-latest
        needs: [Build_and_Push]
