@@ -17,7 +17,7 @@
      - Privileged Containers;
      - Containers with privilege escalation rights;
 
-- Try to create the K8s deployment ```kubectl delete -f deployment.yml```
+- Try to create the K8s deployment ```kubectl apply -f deployment.yml```
 
 ## Result:
 
