@@ -22,7 +22,7 @@ jobs:
               DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
               DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
               DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
-              DSSC_IMAGE_PULL_AUTH: '{"username": "oauth2accesstoken", "password": "ya29.c.KpYB2gc9xggUkohHFmZprmBX7BW2Y9yIHDmk_oZ35irHnkyqKMIReABpwojHR9v4EA00i4SlzCAzzQhRBMUo_OaEWoo6Y_bAVOQonoRvrU8YjkkjZfPo1UNLM9EXyjgJlTsgWjq8iInVH0-RI3YXnfWo6xZ5h0SxwuGjg0AjYpp9Bwh9fdiId0-v-wzYKLr4DgWZqmD_s7Nf"}'
+              DSSC_IMAGE_PULL_AUTH: '{"username": "oauth2accesstoken", "password": "${{ secrets.GCP_PULL_AUTH }}"}'
               DSSC_FINDINGS_THRESHOLD: '{"malware": 999, "vulnerabilities": { "defcon1": 999, "critical": 999, "high": 999 }, "contents": { "defcon1": 999, "critical": 999, "high": 999 }, "checklists": { "defcon1": 999, "critical": 999, "high": 999 }}'
               DSSC_INSECURE_SKIP_TLS_VERIFY: true
               DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true
