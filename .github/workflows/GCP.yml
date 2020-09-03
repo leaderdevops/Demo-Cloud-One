@@ -1,0 +1,40 @@
+#---------------------------------------------------------------------
+# GitHub Actions to Protect CI/CD Pipelines
+#
+# Version      Date        Info
+# 1.0          2020        Initial Version
+#
+# Made by Felipe Costa
+#---------------------------------------------------------------------
+
+name: GCp-Pipeline
+
+env:
+  PACKAGES_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
+  SNYK_TOKEN: ${{ secrets.SNYK_API }}
+  TREND_AP_KEY: ${{ secrets.TREND_AP_KEY }}
+  TREND_AP_SECRET: ${{ secrets.TREND_AP_SECRET }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
+  DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
+  DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
+
+on: push
+      
+jobs:
+    Container_Scan:
+       runs-on: ubuntu-latest
+       needs: [Build_and_Push]
+       steps:
+         - name: Cloud One Container Scan GCR - Django-app
+           uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.2
+           with:
+              DSSC_IMAGE_NAME: gcr.io/serene-anagram-288411/django-app:latest
+              DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
+              DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
+              DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
+              DSSC_IMAGE_PULL_AUTH: ${{ secrets.GCP_PULL_AUTH }}
+              DSSC_FINDINGS_THRESHOLD: '{"malware": 999, "vulnerabilities": { "defcon1": 999, "critical": 999, "high": 999 }, "contents": { "defcon1": 999, "critical": 999, "high": 999 }, "checklists": { "defcon1": 999, "critical": 999, "high": 999 }}'
+              DSSC_INSECURE_SKIP_TLS_VERIFY: true
+              DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true
