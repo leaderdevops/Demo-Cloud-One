@@ -22,7 +22,7 @@ jobs:
               DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
               DSSC_SMARTCHECK_USER: ${{ secrets.DSSC_SMARTCHECK_USER }}
               DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
-              DSSC_IMAGE_PULL_AUTH: '{"username": "oauth2accesstoken, "password": "ya29.c.KpYB2gfwMvnWI2lv55vpMY9lEyuzjsuePRV_qvZgqcb6-Splzny_yuBCnW1Ilid8XnMZgb4gDoEloy_xS3IYHFC4Z3qq-2-J64UQWd391YK8hUz1l9j8nLe143836_l6aKWCnrpiM5CcUhdNIctHmmg0lusOA7RW22bydOBXv6nZ-ABtoEmBMzzeyaVwcgHN_rq_ijRyCldM"}'
+              DSSC_IMAGE_PULL_AUTH: '{"username": "oauth2accesstoken", "password": "ya29.c.KpYB2gfwMvnWI2lv55vpMY9lEyuzjsuePRV_qvZgqcb6-Splzny_yuBCnW1Ilid8XnMZgb4gDoEloy_xS3IYHFC4Z3qq-2-J64UQWd391YK8hUz1l9j8nLe143836_l6aKWCnrpiM5CcUhdNIctHmmg0lusOA7RW22bydOBXv6nZ-ABtoEmBMzzeyaVwcgHN_rq_ijRyCldM"}'
               DSSC_FINDINGS_THRESHOLD: '{"malware": 999, "vulnerabilities": { "defcon1": 999, "critical": 999, "high": 999 }, "contents": { "defcon1": 999, "critical": 999, "high": 999 }, "checklists": { "defcon1": 999, "critical": 999, "high": 999 }}'
               DSSC_INSECURE_SKIP_TLS_VERIFY: true
               DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: true
