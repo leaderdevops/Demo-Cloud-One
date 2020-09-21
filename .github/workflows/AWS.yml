@@ -70,7 +70,8 @@ jobs:
        needs: [Build_and_Push]
        steps:
          - name: Cloud One Container Scan ECR - Django-app
-           uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.2
+           uses: deep-security/smartcheck-scan-action@v1.1.0
+           # uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.2
            with:
               DSSC_IMAGE_NAME: 789900764224.dkr.ecr.us-east-1.amazonaws.com/django-app
               DSSC_SMARTCHECK_HOST: ${{ secrets.DSSC_SMARTCHECK_HOST }}
